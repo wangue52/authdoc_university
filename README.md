@@ -1,6 +1,5 @@
-D'accord, voici une présentation complète de votre application de **Gestion de Demandes d'Authentification de Documents** et de ses fonctionnalités.
 
-**Nom de l'Application :** Service d'Authentification de Documents (Université de Dschang)
+**Nom de l'Application :** Service d'Authentification de Documents
 
 **Objectif :**
 Fournir une plateforme numérique sécurisée et centralisée permettant aux étudiants, partenaires et services internes de l'université de gérer efficacement les demandes de services liés aux documents académiques (authentification, légalisation, duplicata, traduction, transmission).
