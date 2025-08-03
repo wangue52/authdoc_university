@@ -1,0 +1,98 @@
+<!-- templates/couriel/confirmation_reponse.html (Mise à jour) -->
+{% extends "couriel/base_couriel.html" %}
+
+{% block title %}Réponse Préparée - {{ demande.reference }}{% endblock %}
+
+{% block couriel_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Réponse Préparée avec Succès</h1>
+</div>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading"><i class="bi bi-shield-check me-2"></i>Document Sécurisé Généré !</h4>
+    <p>La réponse pour la demande <strong>{{ demande.reference }}</strong> a été préparée et sécurisée avec succès.</p>
+    <hr>
+    <p class="mb-0">
+        Un email de confirmation a été envoyé à <strong>{{ demande.client.email }}</strong>.
+        Le document sécurisé est disponible pour téléchargement.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">Détails de la Demande</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless table-sm mb-0">
+                    <tr><td><strong>Référence:</strong></td><td>{{ demande.reference }}</td></tr>
+                    <tr><td><strong>Client:</strong></td><td>{{ demande.client.email }}</td></tr>
+                    <tr><td><strong>Type de Service:</strong></td><td>{{ demande.type_service.value }}</td></tr>
+                    <tr><td><strong>Statut Final:</strong></td><td><span class="badge bg-success">{{ demande.statut.value }}</span></td></tr>
+                    <tr><td><strong>Date de Réception:</strong></td><td>{{ demande.date_reception.strftime('%d/%m/%Y %H:%M') if demande.date_reception else 'N/A' }}</td></tr>
+                    <tr><td><strong>Date de Réponse:</strong></td><td>{{ demande.date_reponse.strftime('%d/%m/%Y %H:%M') if demande.date_reponse else 'N/A' }}</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">Détails de la Réponse & Sécurité</h5>
+            </div>
+            <div class="card-body">
+                {% if reponse %}
+                <table class="table table-borderless table-sm mb-0">
+                    <tr><td><strong>Type:</strong></td><td>{{ reponse.type_reponse.value }}</td></tr>
+                    <tr><td><strong>Référence Doc:</strong></td><td>{{ reponse.contenu }}</td></tr>
+                    <tr><td><strong>Code Vérification:</strong></td><td><code>{{ demande.code_verification }}</code></td></tr>
+                    <tr><td><strong>Sécurité Appliquée:</strong></td><td>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% if reponse.qr_code %}<span class="badge bg-success"><i class="bi bi-qr-code me-1"></i>QR Code</span>{% endif %}
+                            {% if reponse.filigrane %}<span class="badge bg-success"><i class="bi bi-type me-1"></i>Filigrane</span>{% endif %}
+                            {% if reponse.signature_numerique %}<span class="badge bg-success"><i class="bi bi-pen me-1"></i>Signature</span>{% endif %}
+                        </div>
+                    </td></tr>
+                    <tr><td><strong>Niveau de Sécurité:</strong></td><td><span class="badge bg-primary">{{ reponse.niveau_securite.value }}</span></td></tr>
+                    <tr><td><strong>Date de Génération:</strong></td><td>{{ reponse.date_creation.strftime('%d/%m/%Y %H:%M') }}</td></tr>
+                </table>
+                {% else %}
+                <p>Aucune réponse détaillée disponible.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Document Final</h5>
+    </div>
+    <div class="card-body">
+        {% if reponse and reponse.chemin_fichier_securise %}
+        <div class="d-flex align-items-center">
+            <i class="bi bi-file-earmark-pdf me-2" style="font-size: 2rem; color: #dc3545;"></i>
+            <div>
+                <p class="mb-1"><strong>Document Sécurisé Généré</strong></p>
+                <p class="text-muted mb-0 small">Ce document inclut tous les éléments de sécurité sélectionnés.</p>
+            </div>
+            <a href="/telecharger/document_securise/{{ reponse.id }}" class="btn btn-outline-primary ms-auto">
+                <i class="bi bi-download me-1"></i> Télécharger
+            </a>
+        </div>
+        {% else %}
+        <p class="text-muted">Le document sécurisé n'est pas encore disponible ou un problème est survenu.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="mt-4">
+    <a href="/couriel/demandes" class="btn btn-primary"><i class="bi bi-list-task me-1"></i> Retour aux demandes</a>
+    <a href="/couriel/demandes/{{ demande.id }}" class="btn btn-outline-primary"><i class="bi bi-eye me-1"></i> Voir les détails</a>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,805 @@
+<!-- templates/etudiant/nouvelle_demande.html -->
+{% extends "etudiant/base_etudiant.html" %}
+
+{% block title %}Nouvelle Demande - Service d'Authentification{% endblock %}
+
+{% block extra_css %}
+<!-- Inclure Select2 CSS si vous l'utilisez, sinon, on peut le retirer -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+    /* Styles optimisés */
+    .form-section {
+        display: none;
+    }
+    .form-section.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .document-preview {
+        max-height: 200px;
+        object-fit: contain;
+        border: 1px dashed #dee2e6;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f8f9fa;
+    }
+    .progress-steps {
+        display: flex;
+        margin-bottom: 2rem;
+        justify-content: space-between;
+    }
+    .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+    }
+    /* Ligne entre les étapes */
+    .step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        right: 0;
+        transform: translateX(50%);
+        height: 2px;
+        width: calc(100% - 30px);
+        background-color: #e9ecef;
+        z-index: 1;
+    }
+    .step.completed::after {
+        background-color: #198754; /* Vert pour les étapes complétées */
+    }
+    .step-number {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        background: #e9ecef;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 2; /* Au-dessus de la ligne */
+    }
+    .step.active .step-number {
+        background: #0d6efd;
+        color: white;
+        border: 2px solid #0d6efd;
+    }
+    .step.completed .step-number {
+        background: #198754;
+        color: white;
+        border: 2px solid #198754;
+    }
+    .step-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    .step.active .step-label {
+        color: #0d6efd;
+        font-weight: 500;
+    }
+    .step.completed .step-label {
+        color: #198754;
+        font-weight: 500;
+    }
+
+    /* Styles pour les méthodes de paiement */
+    .payment-method {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .payment-method:hover {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    .payment-method.selected {
+        border-color: #0d6efd;
+        background-color: rgba(13, 110, 253, 0.05);
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .payment-method .bi-check-circle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #0d6efd;
+        display: none;
+    }
+    .payment-method.selected .bi-check-circle {
+        display: block;
+    }
+    .payment-method .method-icon {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .payment-method .method-name {
+        font-weight: 500;
+    }
+    .payment-method .method-details {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    /* Couleurs spécifiques (optionnel) */
+    .orange-money { /* background: #ff6600; color: white; */ }
+    .mobile-money { /* background: #ffcc00; color: #333; */ }
+    .visa { /* background: #1a1f71; color: white; */ }
+    .paypal { /* background: #0070ba; color: white; */ }
+    .virement { /* background: #28a745; color: white; */ }
+
+    .price-summary {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #e9ecef;
+    }
+    /* Amélioration de l'accessibilité */
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .is-invalid {
+        border-color: #dc3545;
+    }
+    .invalid-feedback {
+        display: none;
+        color: #dc3545;
+        font-size: 0.875em;
+    }
+    .was-validated .form-control:invalid ~ .invalid-feedback,
+    .was-validated .form-select:invalid ~ .invalid-feedback,
+    .form-control.is-invalid ~ .invalid-feedback,
+    .form-select.is-invalid ~ .invalid-feedback {
+        display: block;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 767.98px) {
+        .step-label {
+            font-size: 0.7rem;
+        }
+        .step-number {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            font-size: 0.8rem;
+        }
+        .step:not(:last-child)::after {
+             top: 12.5px;
+             width: calc(100% - 25px);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block etudiant_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Nouvelle Demande de Service</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <!-- Barre de progression -->
+        <div class="progress-steps">
+            <div class="step active" id="step-1">
+                <div class="step-number">1</div>
+                <div class="step-label">Service & Bénéficiaire</div>
+            </div>
+            <div class="step" id="step-2">
+                <div class="step-number">2</div>
+                <div class="step-label">Document</div>
+            </div>
+            <div class="step" id="step-3">
+                <div class="step-number">3</div>
+                <div class="step-label">Paiement</div>
+            </div>
+            <div class="step" id="step-4">
+                <div class="step-number">4</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+        </div>
+
+        <form id="demande-form" method="POST" action="/etudiant/demandes/nouvelle" enctype="multipart/form-data" class="needs-validation" novalidate>
+            
+            <!-- Section 1: Service & Bénéficiaire -->
+            <div id="section-1" class="form-section active">
+                <h5 class="mb-4">Informations sur le Service</h5>
+                
+                <div class="mb-4">
+                    <label for="type_service" class="form-label">Type de Service <span class="text-danger">*</span></label>
+                    <select class="form-select" id="type_service" name="type_service" required>
+                        <option value="" disabled selected>Choisissez un service</option>
+                        {% for service in TypeService %}
+                        <option value="{{ service.name }}">{{ service.value }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Veuillez sélectionner un type de service</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Cette demande concerne <span class="text-danger">*</span></label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pour_tiers" id="pour_moi" value="false" checked required>
+                        <label class="form-check-label" for="pour_moi">Moi-même</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pour_tiers" id="pour_tiers" value="true" required>
+                        <label class="form-check-label" for="pour_tiers">Une autre personne</label>
+                    </div>
+                </div>
+
+                <div id="tiers_info" class="mb-4" style="display: none;">
+                    <h6>Informations sur le Tiers</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tiers_nom" class="form-label">Nom <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tiers_nom" name="tiers_nom">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tiers_prenom" class="form-label">Prénom <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tiers_prenom" name="tiers_prenom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tiers_email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="tiers_email" name="tiers_email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tiers_relation" class="form-label">Votre lien avec le tiers <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tiers_relation" name="tiers_relation" placeholder="Ex: Parent, Tuteur...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="partenaire_info" class="mb-4" style="display: none;">
+                     <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> Pour une transmission partenaire, veuillez spécifier la destination dans les commentaires.
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-primary next-section" data-next="2">Suivant <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+
+            <!-- Section 2: Document -->
+            <div id="section-2" class="form-section">
+                <h5 class="mb-4">Informations sur le Document</h5>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="type_document" class="form-label">Type de Document <span class="text-danger">*</span></label>
+                            <select class="form-select" id="type_document" name="type_document" required>
+                                <option value="" disabled selected>Choisissez un type</option>
+                                {% for doc in TypeDocument %}
+                                <option value="{{ doc.name }}">{{ doc.value }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">Veuillez sélectionner un type de document</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="nombre_copies" class="form-label">Nombre de Copies <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="nombre_copies" name="nombre_copies" value="1" min="1" max="10" required>
+                            <div class="invalid-feedback">Veuillez sélectionner le nombre de copies</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="intitule" class="form-label">Intitulé du Document <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="intitule" name="intitule" placeholder="Ex: Diplôme de Master en Informatique" required>
+                    <div class="invalid-feedback">Veuillez saisir l'intitulé du document</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="annee_obtention" class="form-label">Année d'obtention (optionnel)</label>
+                            <input type="text" class="form-control" id="annee_obtention" name="annee_obtention" placeholder="Ex: 2023">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="institution" class="form-label">Institution (optionnel)</label>
+                            <input type="text" class="form-control" id="institution" name="institution" placeholder="Ex: Université de Douala">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="fichier" class="form-label">Fichier à uploader <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control" id="fichier" name="fichier" accept=".pdf,.jpg,.jpeg,.png" required>
+                    <small class="text-muted">Formats acceptés : PDF, JPG, PNG (max 5Mo)</small>
+                    <div class="invalid-feedback">Veuillez sélectionner un fichier valide</div>
+                </div>
+
+                <div class="mb-4" id="preview-container" style="display: none;">
+                    <label class="form-label">Aperçu :</label>
+                    <img id="file-preview" src="#" alt="Aperçu du fichier" class="document-preview img-fluid">
+                </div>
+
+                <div class="mb-3">
+                    <label for="commentaire" class="form-label">Commentaire (optionnel)</label>
+                    <textarea class="form-control" id="commentaire" name="commentaire" rows="3" placeholder="Ajoutez ici toute information complémentaire..."></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-secondary prev-section" data-prev="1"><i class="bi bi-arrow-left me-1"></i> Précédent</button>
+                    <button type="button" class="btn btn-primary next-section" data-next="3">Suivant <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+
+            <!-- Section 3: Paiement -->
+            <div id="section-3" class="form-section">
+                <h5 class="mb-4">Informations de Paiement</h5>
+                
+                <div class="price-summary mb-4">
+                    <h6>Résumé de votre demande</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Service: <span id="summary-service">-</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Bénéficiaire: <span id="summary-beneficiaire">Moi-même</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Document: <span id="summary-document">-</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Copies: <span id="summary-copies">1</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Fichier: <span id="summary-file">-</span>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Montant Total:</span>
+                        <span id="price-total">0 FCFA</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Choisissez votre méthode de paiement <span class="text-danger">*</span></label>
+                    {% for methode in MethodePaiement %}
+                    <div class="payment-method" data-method="{{ methode.name }}">
+                        <input type="radio" name="methode_paiement" value="{{ methode.name }}" class="d-none" required>
+                        <i class="bi bi-check-circle position-absolute" style="top: 10px; right: 10px;"></i>
+                        <div class="method-icon">
+                            {% if methode.name == "ORANGE_MONEY" %}
+                                <i class="bi bi-phone"></i> <!-- Icône générique pour mobile money -->
+                            {% elif methode.name == "MOBILE_MONEY" %}
+                                <i class="bi bi-phone"></i>
+                            {% elif methode.name == "VISA" %}
+                                <i class="bi bi-credit-card"></i>
+                            {% elif methode.name == "PAYPAL" %}
+                                <i class="bi bi-paypal"></i>
+                            {% elif methode.name == "VIREMENT" %}
+                                <i class="bi bi-bank"></i>
+                            {% endif %}
+                        </div>
+                        <div class="method-name">{{ methode.value }}</div>
+                        <!-- <div class="method-details">Détails ou instructions spécifiques</div> -->
+                    </div>
+                    {% endfor %}
+                    <div class="invalid-feedback">Veuillez sélectionner une méthode de paiement</div>
+                </div>
+
+                <div class="mb-4" id="champs_telephone_paiement" style="display:none;">
+                    <label for="telephone_paiement" class="form-label">Numéro de Téléphone <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="telephone_paiement" name="telephone_paiement" placeholder="Ex: 699 12 34 56">
+                    <small class="text-muted">Numéro utilisé pour le paiement mobile.</small>
+                    <div class="invalid-feedback">Veuillez saisir un numéro de téléphone valide</div>
+                </div>
+
+                <input type="hidden" id="montant_total" name="montant_total" value="0">
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-secondary prev-section" data-prev="2"><i class="bi bi-arrow-left me-1"></i> Précédent</button>
+                    <button type="button" class="btn btn-primary next-section" data-next="4">Suivant <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+
+            <!-- Section 4: Confirmation -->
+            <div id="section-4" class="form-section">
+                <h5 class="mb-4">Confirmation de la Demande</h5>
+                
+                <div class="alert alert-warning" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <strong>Important :</strong> Veuillez vérifier attentivement les informations ci-dessous avant de soumettre votre demande.
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">Récapitulatif</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Service:</strong> <span id="confirm-service">-</span></p>
+                                <p><strong>Bénéficiaire:</strong> <span id="confirm-beneficiaire">Moi-même</span></p>
+                                <p><strong>Document:</strong> <span id="confirm-document">-</span></p>
+                                <p><strong>Copies:</strong> <span id="confirm-copies">1</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Fichier:</strong> <span id="confirm-file">-</span></p>
+                                <p><strong>Commentaire:</strong> <span id="confirm-comment">-</span></p>
+                                <p><strong>Méthode de Paiement:</strong> <span id="confirm-payment">-</span></p>
+                                <p><strong>Montant Total:</strong> <span id="confirm-amount" class="fw-bold">0 FCFA</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="conditions" required>
+                    <label class="form-check-label" for="conditions">
+                        Je certifie que les informations fournies sont exactes et j'accepte les
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#conditionsModal">conditions d'utilisation</a>.
+                    </label>
+                    <div class="invalid-feedback">Vous devez accepter les conditions</div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-secondary prev-section" data-prev="3"><i class="bi bi-arrow-left me-1"></i> Précédent</button>
+                    <button type="submit" class="btn btn-success"><i class="bi bi-send me-1"></i> Soumettre la demande</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Conditions -->
+<div class="modal fade" id="conditionsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Conditions d'utilisation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>En soumettant cette demande, vous acceptez les conditions suivantes :</p>
+                <ul>
+                    <li>Les informations fournies sont exactes et complètes.</li>
+                    <li>Le document fourni est votre propriété ou que vous avez l'autorisation de le soumettre.</li>
+                    <li>Vous êtes responsable du paiement du montant indiqué selon la méthode choisie.</li>
+                    <li>L'institution se réserve le droit de refuser une demande si les documents sont jugés incorrects ou incomplets.</li>
+                    <li>Les délais de traitement sont indicatifs et peuvent varier.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">J'ai compris</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Inclure jQuery et Select2 JS si vous les utilisez -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- DONNEES DU BACKEND ---
+    // Ces données devraient idéalement être passées depuis le backend
+    // lors du rendu du template. Pour l'instant, on les définit ici.
+    // Assurez-vous qu'elles correspondent à celles de votre backend.
+    const servicePrices = {
+        'AUTHENTIFICATION': 5000,
+        'DUPLICATA': 10000,
+        'LEGALISATION': 3000,
+        'TRADUCTION': 15000,
+        'TRANSMISSION_PARTENAIRE': 7500
+    };
+
+    // --- FONCTIONS D'ASSISTANCE ---
+    function updateProgressBar(activeSection) {
+        document.querySelectorAll('.step').forEach((step, index) => {
+            const stepNum = index + 1;
+            step.classList.remove('active', 'completed');
+            if (stepNum < activeSection) {
+                step.classList.add('completed');
+            } else if (stepNum === activeSection) {
+                step.classList.add('active');
+            }
+        });
+    }
+
+    function showSection(sectionNumber) {
+        document.querySelectorAll('.form-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(`section-${sectionNumber}`).classList.add('active');
+        updateProgressBar(sectionNumber);
+        // Faire défiler vers le haut du formulaire
+        document.querySelector('#section-' + sectionNumber).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function calculateTotal() {
+        const serviceType = document.getElementById('type_service').value;
+        const copies = parseInt(document.getElementById('nombre_copies').value) || 1;
+        const pricePerCopy = servicePrices[serviceType] || 0;
+        const totalPrice = pricePerCopy + (copies - 1) * (pricePerCopy * 0.5);
+        
+        document.getElementById('price-total').textContent = `${totalPrice.toLocaleString()} FCFA`;
+        document.getElementById('montant_total').value = totalPrice; // Mettre à jour le champ caché
+        
+        // Mettre à jour le résumé dans la section 3
+        document.getElementById('summary-service').textContent = document.getElementById('type_service').selectedOptions[0]?.text || '-';
+        // Le bénéficiaire est mis à jour ailleurs
+        document.getElementById('summary-document').textContent = document.getElementById('type_document').selectedOptions[0]?.text || '-';
+        document.getElementById('summary-copies').textContent = copies;
+        const fileName = document.getElementById('fichier').files[0] ? document.getElementById('fichier').files[0].name : '-';
+        document.getElementById('summary-file').textContent = fileName;
+        
+        // Mettre à jour la confirmation
+        document.getElementById('confirm-service').textContent = document.getElementById('type_service').selectedOptions[0]?.text || '-';
+        document.getElementById('confirm-document').textContent = document.getElementById('type_document').selectedOptions[0]?.text || '-';
+        document.getElementById('confirm-copies').textContent = copies;
+        document.getElementById('confirm-file').textContent = fileName;
+        document.getElementById('confirm-amount').textContent = `${totalPrice.toLocaleString()} FCFA`;
+    }
+
+    function updateBeneficiaireSummary() {
+        let beneficiaireText = 'Moi-même';
+        if (document.getElementById('pour_tiers').checked) {
+            const prenom = document.getElementById('tiers_prenom').value.trim();
+            const nom = document.getElementById('tiers_nom').value.trim();
+            beneficiaireText = (prenom || nom) ? `${prenom} ${nom}`.trim() : 'Tiers (informations incomplètes)';
+        }
+        document.getElementById('summary-beneficiaire').textContent = beneficiaireText;
+        document.getElementById('confirm-beneficiaire').textContent = beneficiaireText;
+    }
+
+    // --- GESTION DES ETAPES ---
+    document.querySelectorAll('.next-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const nextSection = parseInt(this.getAttribute('data-next'));
+            const currentSection = nextSection - 1;
+            
+            let isValid = true;
+            let firstInvalidElement = null;
+
+            // Validation de la section actuelle
+            document.querySelectorAll(`#section-${currentSection} [required]`).forEach(field => {
+                if (!field.checkValidity()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                    if (!firstInvalidElement) firstInvalidElement = field;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            // Validation spécifique pour les tiers
+            if (currentSection === 1 && document.getElementById('pour_tiers').checked) {
+                const tiersFields = ['tiers_nom', 'tiers_prenom', 'tiers_email', 'tiers_relation'];
+                tiersFields.forEach(id => {
+                    const field = document.getElementById(id);
+                    if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                        if (!firstInvalidElement) firstInvalidElement = field;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+                // Validation email tiers
+                const emailField = document.getElementById('tiers_email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailField.value && !emailRegex.test(emailField.value)) {
+                     emailField.classList.add('is-invalid');
+                     isValid = false;
+                     if (!firstInvalidElement) firstInvalidElement = emailField;
+                }
+            }
+
+            // Validation spécifique pour le paiement
+            if (currentSection === 3) {
+                const paymentSelected = document.querySelector('input[name="methode_paiement"]:checked');
+                const paymentMethodDivs = document.querySelectorAll('.payment-method');
+                
+                if (!paymentSelected) {
+                    paymentMethodDivs.forEach(div => div.classList.add('border-danger'));
+                    isValid = false;
+                    // Pas de firstInvalidElement car c'est un groupe
+                } else {
+                    paymentMethodDivs.forEach(div => div.classList.remove('border-danger'));
+                }
+                
+                // Validation téléphone pour paiement mobile
+                const selectedMethod = paymentSelected ? paymentSelected.value : '';
+                const phoneField = document.getElementById('telephone_paiement');
+                if (selectedMethod === 'ORANGE_MONEY' || selectedMethod === 'MOBILE_MONEY') {
+                    if (!phoneField.value.trim()) {
+                        phoneField.classList.add('is-invalid');
+                        isValid = false;
+                        if (!firstInvalidElement) firstInvalidElement = phoneField;
+                    } else {
+                        // Simple validation de numéro (ajustez selon vos besoins)
+                        const phoneRegex = /^[0-9+\s\-()]+$/; // Permet chiffres, +, espace, -, ()
+                        if (!phoneRegex.test(phoneField.value)) {
+                             phoneField.classList.add('is-invalid');
+                             isValid = false;
+                             if (!firstInvalidElement) firstInvalidElement = phoneField;
+                        } else {
+                            phoneField.classList.remove('is-invalid');
+                        }
+                    }
+                } else {
+                    phoneField.classList.remove('is-invalid'); // Masquer erreur si méthode change
+                }
+
+                // Validation conditions
+                const conditionsCheckbox = document.getElementById('conditions');
+                if (!conditionsCheckbox.checked) {
+                    conditionsCheckbox.classList.add('is-invalid');
+                    isValid = false;
+                    if (!firstInvalidElement) firstInvalidElement = conditionsCheckbox;
+                } else {
+                    conditionsCheckbox.classList.remove('is-invalid');
+                }
+            }
+
+            if (isValid) {
+                showSection(nextSection);
+            } else {
+                // Surligner les champs invalides et faire défiler vers le premier
+                if (firstInvalidElement) {
+                    firstInvalidElement.focus();
+                    firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                // Pour le paiement, surligner aussi le groupe de boutons
+                if(currentSection === 3 && !document.querySelector('input[name="methode_paiement"]:checked')) {
+                    document.querySelector('.payment-method').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.prev-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const prevSection = parseInt(this.getAttribute('data-prev'));
+            showSection(prevSection);
+        });
+    });
+
+    // --- GESTION DES INTERACTIONS CHAMPS ---
+    document.getElementById('pour_tiers').addEventListener('change', function() {
+        document.getElementById('tiers_info').style.display = this.checked ? 'block' : 'none';
+        updateBeneficiaireSummary();
+    });
+    document.getElementById('pour_moi').addEventListener('change', function() {
+        document.getElementById('tiers_info').style.display = 'none';
+        updateBeneficiaireSummary();
+    });
+
+    // Mise à jour du bénéficiaire quand les champs tiers changent
+    ['tiers_prenom', 'tiers_nom'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateBeneficiaireSummary);
+    });
+
+    document.getElementById('type_service').addEventListener('change', function() {
+        document.getElementById('partenaire_info').style.display = (this.value === 'TRANSMISSION_PARTENAIRE') ? 'block' : 'none';
+        calculateTotal();
+    });
+
+    // Gestion des méthodes de paiement
+    document.querySelectorAll('.payment-method').forEach(method => {
+        method.addEventListener('click', function() {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input[type="radio"]').checked = true;
+            
+            const selectedMethod = this.getAttribute('data-method');
+            const phoneFieldContainer = document.getElementById('champs_telephone_paiement');
+            if (selectedMethod === 'ORANGE_MONEY' || selectedMethod === 'MOBILE_MONEY') {
+                phoneFieldContainer.style.display = 'block';
+            } else {
+                phoneFieldContainer.style.display = 'none';
+                // Nettoyer le champ téléphone si méthode change
+                document.getElementById('telephone_paiement').value = '';
+                document.getElementById('telephone_paiement').classList.remove('is-invalid');
+            }
+            
+            // Mettre à jour le récapitulatif de paiement
+            document.getElementById('confirm-payment').textContent = this.querySelector('.method-name').textContent;
+        });
+    });
+
+    // Mise à jour des prix
+    document.getElementById('type_service').addEventListener('change', calculateTotal);
+    document.getElementById('nombre_copies').addEventListener('input', calculateTotal);
+
+    // Aperçu du fichier
+    document.getElementById('fichier').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('file-preview');
+        
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Pour les PDF, vous pouvez afficher une icône ou un message
+                previewImage.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzY4NzEyMyI+PHBhdGggZD0iTTE0IDJINmMtMS4xIDAtMiAuOS0yIDJ2MTZjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlY4bC02LTZ6bTQgMThINlY0aDd2NGgxMHYxMnoiLz48L3N2Zz4='; // Icône PDF SVG simple
+                previewContainer.style.display = 'block';
+            }
+            // Mettre à jour le résumé
+            document.getElementById('summary-file').textContent = file.name;
+            document.getElementById('confirm-file').textContent = file.name;
+        } else {
+            previewContainer.style.display = 'none';
+            document.getElementById('summary-file').textContent = '-';
+            document.getElementById('confirm-file').textContent = '-';
+        }
+    });
+
+    // Calcul initial
+    calculateTotal();
+    updateBeneficiaireSummary();
+
+    // --- GESTION DE LA SOUMISSION DU FORMULAIRE ---
+    document.getElementById('demande-form').addEventListener('submit', function(e) {
+        // Ajouter la classe de validation pour montrer les erreurs
+        this.classList.add('was-validated');
+        
+        // Si le formulaire n'est pas valide, empêcher la soumission
+        if (!this.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Trouver la première section avec une erreur et y aller
+            let errorSection = 1;
+            for (let i = 1; i <= 4; i++) {
+                if (document.querySelectorAll(`#section-${i} .is-invalid`).length > 0) {
+                    errorSection = i;
+                    break;
+                }
+            }
+            // Vérifier spécifiquement les erreurs de paiement
+            if (!document.querySelector('input[name="methode_paiement"]:checked')) {
+                errorSection = 3;
+            }
+            if (!document.getElementById('conditions').checked) {
+                errorSection = 4;
+            }
+            
+            showSection(errorSection);
+            
+            // Faire défiler vers le premier élément invalide
+            const firstInvalid = this.querySelector('.is-invalid');
+            if (firstInvalid) {
+                firstInvalid.focus();
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        // Si le formulaire est valide, il sera soumis normalement
+    });
+
+});
+</script>
+{% endblock %}

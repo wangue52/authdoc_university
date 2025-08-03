@@ -1,0 +1,127 @@
+<!-- templates/couriel/reponse_demande.html -->
+{% extends "couriel/base_couriel.html" %}
+
+{% block title %}Répondre à la Demande {{ demande.reference }}{% endblock %}
+
+{% block couriel_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Préparer la Réponse pour <span class="text-muted">{{ demande.reference }}</span></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <form method="POST" action="/couriel/demandes/{{ demande.id }}/reponse" enctype="multipart/form-data">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Document Scanné</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="fichier_scan" class="form-label">Sélectionnez le document scanné (PDF)</label>
+                        <input class="form-control" type="file" id="fichier_scan" name="fichier_scan" accept=".pdf" required>
+                        <div class="form-text">Téléchargez le document final scanné après traitement physique.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Détails de la Réponse</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="type_reponse" class="form-label">Type de Réponse</label>
+                        <select class="form-select" id="type_reponse" name="type_reponse" required>
+                            {% for reponse in TypeReponse %}
+                            <option value="{{ reponse.name }}">{{ reponse.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contenu" class="form-label">Contenu/Référence</label>
+                        <input type="text" class="form-control" id="contenu" name="contenu" required placeholder="Référence du document ou description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="niveau_securite" class="form-label">Niveau de Sécurité</label>
+                        <select class="form-select" id="niveau_securite" name="niveau_securite">
+                            {% for niveau in NiveauSecurite %}
+                            <option value="{{ niveau.name }}">{{ niveau.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Options de Sécurité (Automatiques)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="qr_code" name="qr_code" checked>
+                        <label class="form-check-label" for="qr_code">
+                            Ajouter un QR Code de vérification
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="filigrane" name="filigrane" checked>
+                        <label class="form-check-label" for="filigrane">
+                            Ajouter un filigrane "DOCUMENT AUTHENTIFIE"
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="signature_numerique" name="signature_numerique">
+                        <label class="form-check-label" for="signature_numerique">
+                            Ajouter un watermark anti-photocopie
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Commentaires</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="commentaire_public" class="form-label">Commentaire Public (pour le client)</label>
+                        <textarea class="form-control" id="commentaire_public" name="commentaire_public" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commentaire_interne" class="form-label">Commentaire Interne (COURIEL uniquement)</label>
+                        <textarea class="form-control" id="commentaire_interne" name="commentaire_interne" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Préparer et Envoyer la Réponse</button>
+            <a href="/couriel/demandes/{{ demande.id }}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="alert alert-info" role="alert">
+            <h5>Instructions</h5>
+            <p>Après avoir uploadé le document scanné :</p>
+            <ul>
+                <li>L'application appliquera automatiquement les options de sécurité sélectionnées.</li>
+                <li>Le document sécurisé sera généré.</li>
+                <li>Le statut de la demande passera à <strong>"Complétée"</strong>.</li>
+                <li>Une notification sera envoyée au client.</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Détails de la Demande</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Client:</strong> {{ demande.client.email }}</p>
+                <p><strong>Type:</strong> {{ demande.type_service.value }}</p>
+                <p><strong>Créée le:</strong> {{ demande.date_creation.strftime('%d/%m/%Y') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

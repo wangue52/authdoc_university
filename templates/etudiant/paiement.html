@@ -1,0 +1,118 @@
+<!-- templates/etudiant/paiement.html -->
+{% extends "etudiant/base_etudiant.html" %}
+
+{% block title %}Paiement - {{ demande.reference }}{% endblock %}
+
+{% block etudiant_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Paiement de la Demande <span class="text-muted">{{ demande.reference }}</span></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Instructions de Paiement</h5>
+            </div>
+            <div class="card-body">
+                {% if demande.methode_paiement.name == "ORANGE_MONEY" or demande.methode_paiement.name == "MOBILE_MONEY" %}
+                <h6>Paiement par {{ demande.methode_paiement.value }}</h6>
+                <p>Veuillez effectuer un paiement de <strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong> en utilisant le numéro <strong>{{ telephone_paiement or "votre numéro enregistré" }}</strong>.</p>
+                <ol>
+                    <li>Ouvrez votre application {{ demande.methode_paiement.value }}.</li>
+                    <li>Sélectionnez "Transfert d'argent" ou "Paiement".</li>
+                    <li>Entrez le numéro indiqué ci-dessus.</li>
+                    <li>Saisissez le montant de <strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong>.</li>
+                    <li>Confirmez la transaction.</li>
+                    <li>Conservez le reçu de la transaction.</li>
+                </ol>
+                <p class="text-muted"><small>Une fois le paiement effectué, votre demande sera traitée automatiquement dans les plus brefs délais.</small></p>
+                
+                {% elif demande.methode_paiement.name == "VISA" or demande.methode_paiement.name == "PAYPAL" %}
+                <h6>Paiement par {{ demande.methode_paiement.value }}</h6>
+                <p>Vous allez être redirigé vers la plateforme de paiement sécurisée de <strong>{{ demande.methode_paiement.value }}</strong> pour un montant de <strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong>.</p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg" type="button">
+                        <i class="bi bi-shield-lock me-2"></i>Procéder au Paiement Sécurisé
+                    </button>
+                </div>
+                <p class="text-muted mt-3"><small>Votre paiement est protégé par un cryptage de bout en bout.</small></p>
+                
+                {% elif demande.methode_paiement.name == "VIREMENT" %}
+                <h6>Paiement par Virement Bancaire</h6>
+                <p>Veuillez effectuer un virement bancaire de <strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong> aux coordonnées bancaires suivantes :</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Banque :</strong> Nom de la Banque</li>
+                    <li class="list-group-item"><strong>IBAN :</strong> XXXX XXXX XXXX XXXX</li>
+                    <li class="list-group-item"><strong>BIC/SWIFT :</strong> XXXXXXXX</li>
+                    <li class="list-group-item"><strong>Titulaire du compte :</strong> Nom de l'Institut</li>
+                    <li class="list-group-item"><strong>Référence du virement :</strong> <code>{{ demande.reference }}</code></li>
+                </ul>
+                <p class="alert alert-info"><i class="bi bi-info-circle me-1"></i> Veuillez impérativement indiquer la référence <strong>{{ demande.reference }}</strong> dans le libellé de votre virement.</p>
+                <p class="text-muted"><small>Le traitement de votre demande commencera après confirmation du virement par la banque, ce qui peut prendre 1 à 2 jours ouvrables.</small></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Résumé de la Demande</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Référence</span>
+                        <strong>{{ demande.reference }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Service</span>
+                        <span>{{ demande.type_service.value }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Document</span>
+                        {% if demande.documents %}
+                            <span>{{ demande.documents[0].type_document.value }}</span>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Copies</span>
+                        {% if demande.documents %}
+                            <span>{{ demande.documents[0].nombre_copies }}</span>
+                        {% else %}
+                            <span>1</span>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Méthode</span>
+                        <span>{{ demande.methode_paiement.value }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        <span>Montant Total</span>
+                        <strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Besoin d'aide ?</h5>
+            </div>
+            <div class="card-body">
+                <p>Si vous rencontrez des difficultés pour effectuer le paiement, contactez notre support.</p>
+                <a href="mailto:support@institut.edu" class="btn btn-outline-primary w-100">
+                    <i class="bi bi-envelope me-1"></i> support@institut.edu
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="/etudiant/demandes" class="btn btn-secondary"><i class="bi bi-arrow-left me-1"></i> Retour aux demandes</a>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+<!-- templates/couriel/details_demande.html -->
+{% extends "couriel/base_couriel.html" %}
+
+{% block title %}Détails Demande {{ demande.reference }}{% endblock %}
+
+{% block couriel_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Détails de la Demande <span class="text-muted">{{ demande.reference }}</span></h1>
+    <div>
+        {% if demande.statut.name == "SOUMISE" %}
+        <a href="/couriel/demandes/{{ demande.id }}/reception" class="btn btn-success">Réceptionner</a>
+        {% elif demande.statut.name == "RECU" %}
+        <a href="/couriel/demandes/{{ demande.id }}/reponse" class="btn btn-info">Préparer Réponse</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Informations Générales</h4>
+        <table class="table table-borderless">
+            <tr><td><strong>Statut:</strong></td><td>
+                {% if demande.statut.name == "SOUMISE" %}
+                    <span class="badge bg-warning">{{ demande.statut.value }}</span>
+                {% elif demande.statut.name == "RECU" %}
+                    <span class="badge bg-info">{{ demande.statut.value }}</span>
+                {% elif demande.statut.name == "COMPLETEE" %}
+                    <span class="badge bg-success">{{ demande.statut.value }}</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ demande.statut.value }}</span>
+                {% endif %}
+            </td></tr>
+            <tr><td><strong>Type de Service:</strong></td><td>{{ demande.type_service.value }}</td></tr>
+            <tr><td><strong>Client:</strong></td><td>{{ demande.client.email }}</td></tr>
+            <tr><td><strong>Date de Création:</strong></td><td>{{ demande.date_creation.strftime('%d/%m/%Y %H:%M') }}</td></tr>
+            {% if demande.date_reception %}
+            <tr><td><strong>Date de Réception:</strong></td><td>{{ demande.date_reception.strftime('%d/%m/%Y %H:%M') }}</td></tr>
+            {% endif %}
+            {% if demande.date_reponse %}
+            <tr><td><strong>Date de Réponse:</strong></td><td>{{ demande.date_reponse.strftime('%d/%m/%Y %H:%M') }}</td></tr>
+            {% endif %}
+        </table>
+    </div>
+    
+    <div class="col-md-6">
+        <h4>Document Demandé</h4>
+        {% if demande.documents %}
+        <table class="table table-borderless">
+            {% for doc in demande.documents %}
+            <tr><td><strong>Type:</strong></td><td>{{ doc.type_document.value }}</td></tr>
+            <tr><td><strong>Intitulé:</strong></td><td>{{ doc.intitule }}</td></tr>
+            <tr><td><strong>Copies:</strong></td><td>{{ doc.nombre_copies }}</td></tr>
+            {% if doc.annee_obtention %}
+            <tr><td><strong>Année d'obtention:</strong></td><td>{{ doc.annee_obtention }}</td></tr>
+            {% endif %}
+            {% if doc.institution %}
+            <tr><td><strong>Institution:</strong></td><td>{{ doc.institution }}</td></tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Aucun document spécifié.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h4>Fichiers</h4>
+        {% if demande.fichiers %}
+        <ul class="list-group">
+            {% for fichier in demande.fichiers %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ fichier.nom_fichier }}
+                <span class="badge bg-primary rounded-pill">{{ "%.2f"|format(fichier.taille / 1024) }} KB</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Aucun fichier joint.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

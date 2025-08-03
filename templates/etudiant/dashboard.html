@@ -1,0 +1,38 @@
+<!-- templates/etudiant/dashboard.html -->
+{% extends "etudiant/base_etudiant.html" %}
+
+{% block title %}Tableau de Bord Étudiant{% endblock %}
+
+{% block etudiant_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Tableau de Bord</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/etudiant/demandes/nouvelle" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus"></i> Nouvelle Demande
+        </a>
+    </div>
+</div>
+
+<h4>Mes dernières demandes</h4>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for demande in demandes %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ demande.reference }}</h5>
+                <p class="card-text">
+                    <span class="badge bg-secondary">{{ demande.type_service.value }}</span>
+                    <span class="badge bg-info">{{ demande.statut.value }}</span>
+                </p>
+                <p class="card-text"><small class="text-muted">Créée le {{ demande.date_creation.strftime('%d/%m/%Y') }}</small></p>
+            </div>
+            <div class="card-footer">
+                <a href="/etudiant/demandes/{{ demande.id }}" class="btn btn-primary btn-sm">Voir Détails</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Vous n'avez pas encore de demandes.</p>
+    {% endfor %}
+</div>
+{% endblock %}

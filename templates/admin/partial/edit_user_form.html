@@ -1,0 +1,51 @@
+<!-- templates/admin/partials/edit_user_form.html -->
+<!-- Ce template est un fragment destiné à être chargé dans un conteneur via HTMX -->
+<form id="editUserForm"
+      hx-put="/admin/users/{{ editing_user.id }}" {# Utilisez l'ID de l'utilisateur en cours d'édition #}
+      hx-target="#messageContainer" {# Spécifie où afficher le message de réponse #}
+      hx-swap="innerHTML" {# Remplace le contenu du conteneur cible #}
+      hx-on:htmx:after-request="if(event.detail.successful){ closePanels(); }"> {# Ferme le panneau si succès #}
+
+    {# Champ caché pour l'ID de l'utilisateur (utile si vous préférez l'extraire de FormData côté serveur) #}
+    <input type="hidden" id="edit_user_id" name="user_id" value="{{ editing_user.id }}">
+
+    <div class="mb-3">
+        <label for="edit_username" class="form-label">Nom d'utilisateur *</label>
+        <input type="text" class="form-control" id="edit_username" name="username"
+               value="{{ editing_user.username }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="edit_email" class="form-label">Email *</label>
+        <input type="email" class="form-control" id="edit_email" name="email"
+               value="{{ editing_user.email }}" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="edit_roles" class="form-label">Rôles</label>
+        <select class="form-select select2-modal" id="edit_roles" name="roles" multiple>
+            {% for role in all_roles %}
+                <option value="{{ role.id }}"
+                        {# Vérifie si le rôle de la boucle fait partie des rôles de l'utilisateur en cours d'édition #}
+                        {% if role in editing_user.roles %}selected{% endif %}>
+                    {{ role.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label for="edit_password" class="form-label">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+        <input type="password" class="form-control" id="edit_password" name="password">
+        <div class="form-text">Laissez ce champ vide si vous ne souhaitez pas modifier le mot de passe.</div>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-warning btn-lg text-white">
+            {# Indicateur de chargement pour HTMX #}
+            <span class="htmx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="htmx-text">Enregistrer</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" hx-on:click="closePanels()">Annuler</button>
+    </div>
+</form>

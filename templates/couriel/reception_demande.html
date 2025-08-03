@@ -1,0 +1,56 @@
+<!-- templates/couriel/reception_demande.html -->
+{% extends "couriel/base_couriel.html" %}
+
+{% block title %}Réceptionner Demande {{ demande.reference }}{% endblock %}
+
+{% block couriel_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Réceptionner la Demande <span class="text-muted">{{ demande.reference }}</span></h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Informations de la Demande</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Client:</strong> {{ demande.client.email }}</p>
+                <p><strong>Type de Service:</strong> {{ demande.type_service.value }}</p>
+                <p><strong>Date de Création:</strong> {{ demande.date_creation.strftime('%d/%m/%Y %H:%M') }}</p>
+                
+                {% if demande.documents %}
+                <h6>Document(s) Demandé(s):</h6>
+                <ul>
+                    {% for doc in demande.documents %}
+                    <li>{{ doc.type_document.value }} - {{ doc.intitule }} ({{ doc.nombre_copies }} copies)</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        <form method="POST" action="/couriel/demandes/{{ demande.id }}/reception" class="mt-4">
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notes de Réception (optionnel)</label>
+                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Ajoutez des notes sur la réception..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Confirmer la Réception</button>
+            <a href="/couriel/demandes/{{ demande.id }}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="alert alert-info" role="alert">
+            <h5>Instructions</h5>
+            <p>En confirmant la réception :</p>
+            <ul>
+                <li>Le statut de la demande passera à <strong>"Reçue"</strong>.</li>
+                <li>Un dossier physique sera créé pour cette demande.</li>
+                <li>Le document pourra être imprimé et traité manuellement.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

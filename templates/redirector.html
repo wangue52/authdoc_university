@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="1; url={{ redirect_url }}">
+    <title>Redirection en cours - Université de Dschang</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--primary-color);
+        }
+        
+        .redirect-container {
+            text-align: center;
+            max-width: 500px;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        
+        .logo {
+            width: 120px;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .redirect-message {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .manual-link {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <!-- Remplacez par votre logo -->
+        <img src="/static/img/logo.png" alt="Logo Université" class="logo">
+        
+        <h1>Connexion réussie</h1>
+        
+        <div class="redirect-message">
+            <p>Vous êtes authentifié avec succès. Redirection vers votre espace personnel...</p>
+        </div>
+        
+        <div class="spinner"></div>
+        
+        <div class="manual-link">
+            Si la redirection ne fonctionne pas, <a href="{{ redirect_url }}">cliquez ici</a>
+        </div>
+    </div>
+
+    <script>
+        // Fallback en cas de redirection manquante
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 1500);
+        
+        // Animation progressive du spinner
+        document.addEventListener('DOMContentLoaded', function() {
+            const spinner = document.querySelector('.spinner');
+            setTimeout(() => {
+                spinner.style.opacity = '1';
+                spinner.style.transition = 'opacity 0.5s ease';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

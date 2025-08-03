@@ -1,0 +1,503 @@
+<!-- templates/admin_dashboard.html -->
+ {% extends 'index.html' %}
+{% block title %}Tableau de bord Admin 2.0{% endblock %}
+
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://unpkg.com/apexcharts@3.35.0/dist/apexcharts.min.css" rel="stylesheet">
+<link href="https://unpkg.com/htmx.org@1.9.4" rel="stylesheet">
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+        --secondary-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
+        --success-gradient: linear-gradient(135deg, #43e97b, #38f9d7);
+        --warning-gradient: linear-gradient(135deg, #fa709a, #fee140);
+    }
+    
+    .dashboard-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        background: white;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card {
+        position: relative;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-gradient);
+        opacity: 0.9;
+        z-index: 1;
+    }
+    
+    .stat-card.users::before { background: var(--primary-gradient); }
+    .stat-card.demandes::before { background: var(--secondary-gradient); }
+    .stat-card.processing::before { background: var(--warning-gradient); }
+    .stat-card.completed::before { background: var(--success-gradient); }
+    
+    .stat-card-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .stat-count {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-feature-settings: "tnum";
+        font-variant-numeric: tabular-nums;
+    }
+    
+    .stat-label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+    
+    .stat-icon {
+        font-size: 3rem;
+        opacity: 0.2;
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* Animation pour les cartes */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-card {
+        animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .animate-card:nth-child(1) { animation-delay: 0.1s; }
+    .animate-card:nth-child(2) { animation-delay: 0.2s; }
+    .animate-card:nth-child(3) { animation-delay: 0.3s; }
+    .animate-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    /* Style pour les tables */
+    .data-table {
+        --bs-table-bg: transparent;
+        --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
+    }
+    
+    .data-table th {
+        border-bottom-width: 2px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+    }
+    
+    /* Badges modernes */
+    .status-badge {
+        padding: 0.35em 0.65em;
+        font-size: 0.75em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 50rem;
+    }
+    
+    /* Effet de vague sur les cartes */
+    .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.2)' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4" 
+     hx-get="/admin/dashboard/updates" 
+     hx-trigger="every 30s"
+     hx-swap="none">
+     
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 mb-0 fw-bold text-gradient">
+            <i class="bi bi-speedometer2 me-2"></i>Tableau de bord Admin
+        </h1>
+        <div class="text-muted">
+            <span class="fw-medium">{{ user.username }}</span>
+            <span id="live-clock" class="ms-2"></span>
+        </div>
+    </div>
+
+    <!-- Cartes de statistiques avec HTMX -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card users animate-card h-100"
+                 hx-get="/admin/stats/users"
+                 hx-trigger="load, every 30s"
+                 hx-swap="innerHTML">
+                <div class="wave"></div>
+                <div class="stat-card-content">
+                    <div class="stat-count">{{ total_users }}</div>
+                    <div class="stat-label">Utilisateurs</div>
+                    <i class="bi bi-people-fill stat-icon"></i>
+                </div>
+                <a href="/admin/users" class="stretched-link"></a>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card demandes animate-card h-100"
+                 hx-get="/admin/stats/demandes"
+                 hx-trigger="load, every 30s"
+                 hx-swap="innerHTML">
+                <div class="wave"></div>
+                <div class="stat-card-content">
+                    <div class="stat-count">{{ total_demandes }}</div>
+                    <div class="stat-label">Demandes</div>
+                    <i class="bi bi-files stat-icon"></i>
+                </div>
+                <a href="/admin/demandes" class="stretched-link"></a>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card processing animate-card h-100"
+                 hx-get="/admin/stats/processing"
+                 hx-trigger="load, every 30s"
+                 hx-swap="innerHTML">
+                <div class="wave"></div>
+                <div class="stat-card-content">
+                    <div class="stat-count">{{ demandes_en_cours }}</div>
+                    <div class="stat-label">En traitement</div>
+                    <i class="bi bi-hourglass-split stat-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="stat-card completed animate-card h-100"
+                 hx-get="/admin/stats/completed"
+                 hx-trigger="load, every 30s"
+                 hx-swap="innerHTML">
+                <div class="wave"></div>
+                <div class="stat-card-content">
+                    <div class="stat-count">{{ demandes_completees }}</div>
+                    <div class="stat-label">Complétées</div>
+                    <i class="bi bi-check-circle-fill stat-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphique et dernières demandes -->
+    <div class="row g-4 mb-4">
+        <!-- Graphique ApexCharts -->
+        <div class="col-lg-6">
+            <div class="dashboard-card h-100 p-3">
+                <div id="demandesChart"></div>
+            </div>
+        </div>
+        
+        <!-- Dernières demandes -->
+        <div class="col-lg-6">
+            <div class="dashboard-card h-100">
+                <div class="card-header bg-transparent border-bottom d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i>Activité récente
+                    </h5>
+                    <a href="/admin/demandes" class="btn btn-sm btn-outline-primary rounded-pill">
+                        Voir tout <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table data-table table-hover mb-0">
+                            <tbody>
+                                {% for demande in recent_demandes %}
+                                <tr class="align-middle"
+                                    hx-get="/admin/demandes/{{ demande.id }}/preview"
+                                    hx-trigger="mouseenter"
+                                    hx-target="#demande-preview"
+                                    hx-swap="innerHTML">
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-shape icon-sm bg-light-primary rounded-3 me-3">
+                                                <i class="bi bi-file-earmark-text-fill text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block">{{ demande.reference }}</span>
+                                                <small class="text-muted">{{ demande.type_service.value }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge bg-{{ 'success' if demande.statut.value == 'COMPLETEE' else 'warning' if demande.statut.value == 'EN_TRAITEMENT' else 'info' }}">
+                                            {{ demande.statut.value }}
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <a href="/admin/demandes/{{ demande.id }}" 
+                                           class="btn btn-sm btn-icon btn-outline-secondary rounded-circle">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aperçu et utilisateurs -->
+    <div class="row g-4">
+        <!-- Aperçu de la demande -->
+        <div class="col-lg-5">
+            <div class="dashboard-card h-100">
+                <div class="card-header bg-transparent border-bottom py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-eye-fill text-info me-2"></i>Aperçu
+                    </h5>
+                </div>
+                <div class="card-body" id="demande-preview">
+                    <div class="text-center py-5">
+                        <i class="bi bi-mouse-fill text-muted" style="font-size: 2rem;"></i>
+                        <p class="mt-3 text-muted">Survolez une demande pour voir les détails</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Derniers utilisateurs -->
+        <div class="col-lg-7">
+            <div class="dashboard-card h-100">
+                <div class="card-header bg-transparent border-bottom d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-people-fill text-primary me-2"></i>Nouveaux utilisateurs
+                    </h5>
+                    <a href="/admin/users" class="btn btn-sm btn-outline-primary rounded-pill">
+                        Voir tout <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table data-table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4">Utilisateur</th>
+                                    <th>Rôle</th>
+                                    <th class="text-end pe-4">Inscription</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in recent_users %}
+                                <tr class="align-middle">
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-sm me-3">
+                                                <span class="avatar-initial rounded-circle bg-light-primary text-primary">
+                                                    {{ user.username[0]|upper }}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block">{{ user.username }}</span>
+                                                <small class="text-muted">{{ user.email }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% for role in user.roles %}
+                                        <span class="badge bg-primary me-1">{{ role.name }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <small class="text-muted">{{ user.date_inscription.strftime('%d/%m/%Y') }}</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- HTMX pour l'interactivité -->
+<script src="https://unpkg.com/htmx.org@1.9.4"></script>
+
+<!-- ApexCharts pour les graphiques -->
+<script src="https://unpkg.com/apexcharts@3.35.0/dist/apexcharts.min.js"></script>
+
+<!-- Moment.js pour le formatage des dates -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/fr.min.js"></script>
+
+<script>
+    // Dans votre bloc extra_js
+$(document).ready(function() {
+    // Marquer le lien actif dans la navbar
+    const currentPath = window.location.pathname;
+    $('#adminNavbar .nav-link').each(function() {
+        if ($(this).attr('href') === currentPath) {
+            $(this).addClass('active');
+            $(this).attr('aria-current', 'page');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupération sécurisée des données du graphique
+    const chartData = JSON.parse('{{ chart_data|tojson|safe }}');
+    
+    // Configuration optimisée du graphique
+    const chartOptions = {
+        series: [{
+            name: 'Demandes',
+            data: chartData.counts
+        }],
+        chart: {
+            type: 'area',
+            height: 350,
+            toolbar: { show: false },
+            animations: {
+                enabled: true,
+                easing: 'easeinout',
+                speed: 800,
+                animateGradually: {
+                    enabled: true,
+                    delay: 150
+                }
+            },
+            zoom: { enabled: false }
+        },
+        colors: ['#6e8efb'],
+        dataLabels: { enabled: false },
+        stroke: {
+            curve: 'smooth',
+            width: 3,
+            lineCap: 'round'
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.3,
+                stops: [0, 90, 100],
+                colorStops: [
+                    {
+                        offset: 0,
+                        color: '#6e8efb',
+                        opacity: 1
+                    },
+                    {
+                        offset: 100,
+                        color: '#a777e3',
+                        opacity: 0.3
+                    }
+                ]
+            }
+        },
+        xaxis: {
+            categories: chartData.months,
+            labels: {
+                style: {
+                    colors: '#6c757d',
+                    fontSize: '12px',
+                    fontFamily: 'inherit'
+                }
+            },
+            axisBorder: { show: false },
+            axisTicks: { show: false }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: '#6c757d',
+                    fontSize: '12px',
+                    fontFamily: 'inherit'
+                },
+                formatter: function(val) {
+                    return val.toFixed(0);
+                }
+            }
+        },
+        tooltip: {
+            enabled: true,
+            theme: 'dark',
+            x: {
+                format: 'MMM yyyy'
+            },
+            y: {
+                formatter: function(val) {
+                    return val + " demandes";
+                }
+            }
+        },
+        grid: {
+            borderColor: 'rgba(0, 0, 0, 0.05)',
+            strokeDashArray: 3,
+            padding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            }
+        }
+    };
+
+    // Initialisation avec vérification d'existence
+    const chartElement = document.getElementById('demandesChart');
+    if (chartElement) {
+        const chart = new ApexCharts(chartElement, chartOptions);
+        chart.render();
+        
+        // Pour le rechargement dynamique
+        window.demandesChart = chart;
+    }
+
+    // Fonction de mise à jour (pour HTMX)
+    window.updateChart = function(newData) {
+        if (window.demandesChart) {
+            window.demandesChart.updateOptions({
+                series: [{
+                    data: newData.counts
+                }],
+                xaxis: {
+                    categories: newData.months
+                }
+            });
+        }
+    };
+});
+</script>
+{% endblock %}

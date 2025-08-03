@@ -1,0 +1,83 @@
+<!-- templates/pages/a_propos.html -->
+ {% extends 'index.html' %}
+
+{% block title %}À Propos de Nous{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">À Propos</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-4 mb-4">À Propos de Notre Service</h1>
+            <p class="lead">
+                Bienvenue sur la plateforme officielle d'authentification et de légalisation des documents de l'Institut Universitaire XYZ.
+            </p>
+            <hr class="my-4">
+
+            <h2 class="h4 mt-5">Notre Mission</h2>
+            <p>
+                Notre mission est de fournir un service rapide, fiable et sécurisé pour l'authentification, la légalisation, la traduction et la duplication des documents académiques et administratifs. Nous nous engageons à garantir l'intégrité et l'authenticité de chaque document traité.
+            </p>
+
+            <h2 class="h4 mt-4">Notre Histoire</h2>
+            <p>
+                Fondé en 20XX, notre service a été créé pour répondre à la demande croissante de validation de documents par les étudiants, les professionnels et les institutions partenaires. Depuis, nous avons traité des milliers de demandes avec un haut niveau de satisfaction.
+            </p>
+
+            <h2 class="h4 mt-4">Notre Équipe</h2>
+            <p>
+                Notre équipe est composée de professionnels expérimentés dans les domaines de l'administration, de la traduction et de la sécurité documentaire. Chaque membre est dédié à offrir un service de qualité à nos utilisateurs.
+            </p>
+
+            <h2 class="h4 mt-4">Nos Valeurs</h2>
+            <ul>
+                <li><strong>Intégrité :</strong> Nous traitons chaque document avec le plus grand respect et honnêteté.</li>
+                <li><strong>Efficacité :</strong> Nous optimisons nos processus pour un traitement rapide.</li>
+                <li><strong>Sécurité :</strong> La confidentialité et la sécurité de vos données sont primordiales.</li>
+                <li><strong>Accessibilité :</strong> Nous rendons nos services accessibles à tous, où qu'ils soient.</li>
+            </ul>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Informations Pratiques</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Horaires d'Ouverture</h6>
+                    <p class="card-text">
+                        Lundi - Vendredi : 8h00 - 17h00<br>
+                        Samedi : 9h00 - 12h00<br>
+                        Dimanche : Fermé
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+                    <p class="card-text">
+                        Institut Universitaire XYZ<br>
+                        Rue de l'Université, BP 1234<br>
+                        Ville, Pays
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Besoin d'Aide ?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Consultez notre <a href="/faq">FAQ</a> ou <a href="/contact">contactez-nous</a> directement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

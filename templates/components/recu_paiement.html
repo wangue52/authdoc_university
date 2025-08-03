@@ -1,0 +1,106 @@
+<!-- templates/components/recu_paiement.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Reçu de Paiement - {{ demande.reference }}</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; }
+        .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 20px; }
+        .header p { margin: 5px 0; }
+        .content { margin-bottom: 20px; }
+        .section { margin-bottom: 15px; }
+        .section h2 { font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .footer { text-align: center; font-size: 10px; color: #666; border-top: 1px solid #ccc; padding-top: 10px; }
+        .signature-area { margin-top: 40px; text-align: right; }
+        .qr-placeholder { width: 100px; height: 100px; border: 1px dashed #999; background-color: #f9f9f9; display: inline-block; vertical-align: top; margin-left: 20px; }
+        .security-info { font-size: 10px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>INSTITUT UNIVERSITAIRE</h1>
+            <p>Service d'Authentification des Documents</p>
+            <p>Reçu de Paiement Electronique</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Informations de la Transaction</h2>
+                <table>
+                    <tr>
+                        <th>Référence Demande</th>
+                        <td>{{ demande.reference }}</td>
+                        <th>Date</th>
+                        <td>{{ transaction_date.strftime('%d/%m/%Y %H:%M') }}</td>
+                    </tr>
+                    <tr>
+                        <th>ID Transaction</th>
+                        <td>{{ transaction_id }}</td>
+                        <th>Méthode</th>
+                        <td>{{ demande.methode_paiement.value }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>Détails du Client</h2>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ demande.client.prenom }} {{ demande.client.nom }}</td>
+                        <th>Email</th>
+                        <td>{{ demande.client.email }}</td>
+                    </tr>
+                    <tr>
+                        {% if demande.client.numero_etudiant %}
+                        <th>Numéro Étudiant</th>
+                        <td>{{ demande.client.numero_etudiant }}</td>
+                        {% else %}
+                        <th>Organisation</th>
+                        <td>{{ demande.client.nom_organisation or 'N/A' }}</td>
+                        {% endif %}
+                        <th>Téléphone</th>
+                        <td>{{ telephone_paiement or 'N/A' }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>Détails de la Demande</h2>
+                <table>
+                    <tr>
+                        <th>Service</th>
+                        <td>{{ demande.type_service.value }}</td>
+                        <th>Montant Payé</th>
+                        <td><strong>{{ "{:,.0f} FCFA"|format(demande.montant_total) }}</strong></td>
+                    </tr>
+                    {% if demande.documents %}
+                    <tr>
+                        <th>Document</th>
+                        <td>{{ demande.documents[0].type_document.value }} - {{ demande.documents[0].intitule }}</td>
+                        <th>Copies</th>
+                        <td>{{ demande.documents[0].nombre_copies }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Ce reçu est généré électroniquement et est valide sans signature manuelle.</p>
+            <p class="security-info">
+                Sécurité: Ce document contient un QR code vérifiable, un filigrane et une signature numérique.
+                Code de vérification: <strong>{{ demande.code_verification or 'N/A' }}</strong>
+            </p>
+            <p>Conservation: Ce reçu doit être conservé pendant 5 ans.</p>
+        </div>
+    </div>
+</body>
+</html>

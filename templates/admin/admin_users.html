@@ -1,0 +1,597 @@
+<!-- templates/admin_users.html -->
+{% extends 'index.html' %}
+{% block title %}Gestion des utilisateurs - Améliorée{% endblock %}
+{% block extra_css %}
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<style>
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #e9ecef; /* Light background if image fails */
+        border: 1px solid #dee2e6;
+    }
+    .badge-role {
+        font-size: 0.75rem; /* Slightly smaller */
+        margin-right: 3px;
+    }
+    .action-buttons .btn {
+        padding: 0.25rem 0.5rem; /* Smaller buttons */
+        font-size: 0.875rem;
+    }
+    /* Style for the password display area */
+    #newPasswordDisplay {
+        font-family: monospace;
+        font-weight: bold;
+        word-break: break-all; /* Handle long passwords */
+        background-color: #f8f9fa;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid #dee2e6;
+    }
+    #copyPasswordBtn {
+        margin-top: 0.5rem;
+    }
+    /* Spinner for AJAX requests */
+    .spinner-border-sm {
+        width: 1rem;
+        height: 1rem;
+    }
+    .modal-backdrop {
+        z-index: 1055 !important;
+    }
+    .modal {
+        z-index: 1060 !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-primary"> <!-- Added text-primary -->
+            <i class="bi bi-people-fill me-2"></i>Gestion des Utilisateurs
+        </h1>
+        <button class="btn btn-success" id="openAddUserModal"> <!-- Changed to btn-success -->
+            <i class="bi bi-person-plus-fill me-1"></i> Ajouter un utilisateur
+        </button>
+    </div>
+
+    <!-- Alerts for messages -->
+    <div id="messageContainer" class="mb-3"></div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="usersTable"> <!-- Added align-middle -->
+                    <thead class="table-light"> <!-- Bootstrap 5 class for light header -->
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Nom d'utilisateur</th>
+                            <th>Email</th>
+                            <th>Rôles</th>
+                            <th>Inscription</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr data-user-id="{{ user.id }}"> <!-- Add data attribute for easy JS access -->
+                            <td>
+                                <img src="{{ url_for('static', path='img/logo.png') }}" class="user-avatar" alt="Avatar de {{ user.username }}">
+                            </td>
+                            <td class="fw-medium">{{ user.username }}</td> <!-- Slightly bolder username -->
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% for role in user.roles %}
+                                <span class="badge bg-primary-subtle text-primary-emphasis badge-role">{{ role.name }}</span> <!-- Bootstrap 5 contextual badges -->
+                                {% else %}
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis badge-role">Aucun rôle</span>
+                                {% endfor %}
+                            </td>
+                            <td>{{ user.date_inscription.strftime('%d/%m/%Y') }}</td>
+                            <td class="action-buttons">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-sm btn-outline-info view-user" 
+                                            data-user-id="{{ user.id }}"
+                                            title="Voir (Détails non implémentés dans cet exemple)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning edit-user" 
+                                            data-user-id="{{ user.id }}"
+                                            title="Modifier">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-user" 
+                                            data-user-id="{{ user.id }}"
+                                            title="Supprimer">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-dark reset-password" 
+                                            data-user-id="{{ user.id }}"
+                                            title="Réinitialiser le mot de passe">
+                                        <i class="bi bi-key"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajout utilisateur -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="addUserForm">
+                <div class="modal-header bg-primary text-white"> <!-- Header color -->
+                    <h5 class="modal-title" id="addUserModalLabel">Ajouter un utilisateur</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> <!-- White close button -->
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="add_username" class="form-label">Nom d'utilisateur *</label>
+                        <input type="text" class="form-control" id="add_username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="add_email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_password" class="form-label">Mot de passe *</label>
+                        <input type="password" class="form-control" id="add_password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_roles" class="form-label">Rôles</label>
+                        <select class="form-select select2-modal" id="add_roles" name="roles" multiple>
+                            {% for role in all_roles %}
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" id="addUserSubmitBtn">
+                        <span class="add-spinner spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        <span class="add-text">Enregistrer</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Édition utilisateur -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="editUserForm">
+                <div class="modal-header bg-warning text-dark"> <!-- Header color -->
+                    <h5 class="modal-title" id="editUserModalLabel">Modifier l'utilisateur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hidden input for user ID -->
+                    <input type="hidden" id="edit_user_id" name="user_id">
+                    <div class="mb-3">
+                        <label for="edit_username" class="form-label">Nom d'utilisateur *</label>
+                        <input type="text" class="form-control" id="edit_username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="edit_email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_roles" class="form-label">Rôles</label>
+                        <select class="form-select select2-modal" id="edit_roles" name="roles" multiple>
+                            {% for role in all_roles %}
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_password" class="form-label">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+                        <input type="password" class="form-control" id="edit_password" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-warning text-dark" id="editUserSubmitBtn"> <!-- Button color -->
+                         <span class="edit-spinner spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                         <span class="edit-text">Enregistrer</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Réinitialisation du mot de passe -->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white"> <!-- Header color -->
+                <h5 class="modal-title" id="resetPasswordModalLabel">Réinitialiser le mot de passe</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                 <!-- Hidden input for user ID -->
+                 <input type="hidden" id="reset_user_id" name="user_id">
+                 <p>Souhaitez-vous vraiment réinitialiser le mot de passe pour l'utilisateur <strong><span id="resetUserName"></span></strong> ?</p>
+                 <p>Un nouveau mot de passe sera généré.</p>
+                 <div id="newPasswordSection" class="mt-3 d-none"> <!-- Initially hidden -->
+                     <label for="newPasswordDisplay" class="form-label">Nouveau mot de passe :</label>
+                     <div id="newPasswordDisplay" class="form-control-plaintext"></div>
+                     <button type="button" class="btn btn-sm btn-outline-primary" id="copyPasswordBtn">
+                         <i class="bi bi-clipboard me-1"></i> Copier
+                     </button>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-dark" id="resetPasswordConfirmBtn">
+                    <span class="reset-spinner spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <span class="reset-text">Réinitialiser</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    // --- 1. Initialize DataTable ---
+    const table = $('#usersTable').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/fr-FR.json'
+        },
+        order: [[4, 'desc']], // Sort by inscription date descending
+        responsive: true, // Make table responsive
+         pageLength: 25 // Show more entries by default
+    });
+
+    // --- 2. Initialize Select2 for Modals ---
+    // Use a specific class to avoid conflicts and ensure proper dropdown parent
+    $('.select2-modal').select2({
+        width: '100%',
+        dropdownParent: $('.modal') // Attach dropdown to any open modal
+    });
+
+    // --- Utility Functions ---
+    function showNotification(message, type = 'success') {
+        const alertClass = type === 'error' ? 'alert-danger' : (type === 'warning' ? 'alert-warning' : 'alert-success');
+        const alertHtml = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        $('#messageContainer').html(alertHtml);
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+             $('.alert').alert('close');
+        }, 5000);
+    }
+
+    function toggleSubmitButton($button, isSubmitting) {
+        const $spinner = $button.find('.spinner-border');
+        const $text = $button.find('.add-text, .edit-text, .reset-text'); // Find the text span
+        if (isSubmitting) {
+            $spinner.removeClass('d-none');
+            $text.text('En cours...');
+            $button.prop('disabled', true);
+        } else {
+            $spinner.addClass('d-none');
+            // Reset text based on button ID or class if needed, or keep generic
+             if ($button.attr('id') === 'addUserSubmitBtn') {
+                 $text.text('Enregistrer');
+             } else if ($button.attr('id') === 'editUserSubmitBtn') {
+                 $text.text('Enregistrer');
+             } else if ($button.attr('id') === 'resetPasswordConfirmBtn') {
+                  $text.text('Réinitialiser');
+             }
+            $button.prop('disabled', false);
+        }
+    }
+
+
+    // --- 3. Handle Add User Form Submission ---
+    $('#addUserForm').submit(function(e) {
+        e.preventDefault();
+        const $submitButton = $('#addUserSubmitBtn');
+        toggleSubmitButton($submitButton, true);
+
+        // Get form data
+        const formData = new FormData(this);
+        const userData = Object.fromEntries(formData.entries());
+        // Get roles (Select2 with multiple values)
+        userData.roles = $('#add_roles').val().map(Number); // Convert to numbers
+
+        fetch('/admin/users', { // Make sure this matches your prefix
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include CSRF token if needed
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+             if (!response.ok) {
+                 return response.json().then(err => { throw new Error(err.detail || 'Erreur inconnue'); });
+             }
+             return response.json();
+        })
+        .then(data => {
+            // Close modal
+            $('#addUserModal').modal('hide');
+            // Show success message
+            showNotification(`Utilisateur ${data.username} ajouté avec succès!`);
+            // Reload the page to reflect changes (or add row dynamically)
+            location.reload(); // Simple way, can be optimized later
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            showNotification(`Erreur lors de l'ajout: ${error.message}`, 'error');
+        })
+        .finally(() => {
+             toggleSubmitButton($submitButton, false);
+             // Reset form
+             this.reset();
+             $('#add_roles').val(null).trigger('change'); // Reset Select2
+        });
+    });
+
+    // --- 4. Handle Edit User Button Click (Populate Modal) ---
+    $(document).on('click', '.edit-user', function() {
+        const userId = $(this).data('user-id');
+        // Find the row data from DataTable
+        const rowData = table.row($(this).closest('tr')).data();
+        const username = rowData[1]; // Assuming username is in the second column (index 1)
+        const email = rowData[2];    // Assuming email is in the third column (index 2)
+
+        // Fetch full user data for roles (AJAX call)
+        fetch(`/admin/users/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Populate the edit form
+                $('#edit_user_id').val(data.id);
+                $('#edit_username').val(data.username);
+                $('#edit_email').val(data.email);
+                // Populate roles Select2
+                const roleIds = data.roles.map(role => role.id);
+                $('#edit_roles').val(roleIds).trigger('change');
+                // Set the form action (though we'll use the ID from the hidden field)
+                // $('#editUserForm').attr('action', `/admin/users/${userId}`); // Not needed anymore
+                // Show the modal
+                $('#editUserModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des données utilisateur:', error);
+                showNotification("Erreur lors du chargement des données de l'utilisateur.", 'error');
+            });
+    });
+
+    // --- 5. Handle Edit User Form Submission ---
+    $('#editUserForm').submit(function(e) {
+        e.preventDefault();
+        const $submitButton = $('#editUserSubmitBtn');
+        toggleSubmitButton($submitButton, true);
+
+        const userId = $('#edit_user_id').val(); // Get ID from hidden field
+        if (!userId) {
+            showNotification("ID utilisateur non trouvé.", 'error');
+            toggleSubmitButton($submitButton, false);
+            return;
+        }
+
+        // Get form data
+        const formData = new FormData(this);
+        const userData = Object.fromEntries(formData.entries());
+        // Get roles (Select2 with multiple values)
+        userData.roles = $('#edit_roles').val() ? $('#edit_roles').val().map(Number) : [];
+        // Handle empty password field (don't send it if empty)
+        if (!userData.password) {
+            delete userData.password;
+        }
+
+        fetch(`/admin/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include CSRF token if needed
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+             if (!response.ok) {
+                 return response.json().then(err => { throw new Error(err.detail || 'Erreur inconnue'); });
+             }
+             return response.json();
+        })
+        .then(data => {
+            // Close modal
+            $('#editUserModal').modal('hide');
+            // Show success message
+            showNotification(`Utilisateur ${data.username} mis à jour avec succès!`);
+            // Reload the page to reflect changes (or update row dynamically)
+            location.reload(); // Simple way, can be optimized later
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            showNotification(`Erreur lors de la mise à jour: ${error.message}`, 'error');
+        })
+        .finally(() => {
+             toggleSubmitButton($submitButton, false);
+        });
+    });
+
+    // --- 6. Handle Delete User Button Click ---
+    $(document).on('click', '.delete-user', function() {
+        const userId = $(this).data('user-id');
+        // Find the row data from DataTable for username
+        const rowData = table.row($(this).closest('tr')).data();
+        const username = rowData[1]; // Assuming username is in the second column
+
+        if (confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${username}" ?`)) {
+            fetch(`/admin/users/admin/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Include CSRF token if needed
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                     return response.json().then(err => { throw new Error(err.detail || 'Erreur inconnue'); });
+                }
+                return response.json(); // Expecting {"message": "..."}
+            })
+            .then(data => {
+                // Show success message
+                showNotification(data.message || "Utilisateur supprimé.");
+                // Reload the page to reflect changes (or remove row dynamically)
+                location.reload(); // Simple way, can be optimized later
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                showNotification(`Erreur lors de la suppression: ${error.message}`, 'error');
+            });
+        }
+    });
+
+    // --- 7. Handle Reset Password Button Click (Populate Modal) ---
+    $(document).on('click', '.reset-password', function() {
+        const userId = $(this).data('user-id');
+        // Find the row data from DataTable for username
+        const rowData = table.row($(this).closest('tr')).data();
+        const username = rowData[1]; // Assuming username is in the second column
+
+        // Populate the reset modal
+        $('#reset_user_id').val(userId);
+        $('#resetUserName').text(username);
+        // Hide the new password section initially
+        $('#newPasswordSection').addClass('d-none');
+        $('#newPasswordDisplay').text(''); // Clear previous password
+        // Show the modal
+        $('#resetPasswordModal').modal('show');
+    });
+
+    // --- 8. Handle Reset Password Confirmation ---
+    $('#resetPasswordConfirmBtn').click(function() {
+        const $submitButton = $(this);
+        toggleSubmitButton($submitButton, true);
+
+        const userId = $('#reset_user_id').val();
+        const username = $('#resetUserName').text();
+
+        if (!userId) {
+            showNotification("ID utilisateur non trouvé.", 'error');
+            toggleSubmitButton($submitButton, false);
+            return;
+        }
+
+        fetch(`/admin/users/${userId}/reset-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include CSRF token if needed
+            }
+            // No body needed for this request
+        })
+        .then(response => {
+             if (!response.ok) {
+                 return response.json().then(err => { throw new Error(err.detail || 'Erreur inconnue'); });
+             }
+             return response.json();
+        })
+        .then(data => {
+            // Display the new password
+            $('#newPasswordDisplay').text(data.new_password);
+            $('#newPasswordSection').removeClass('d-none'); // Show the section
+            showNotification(`Mot de passe réinitialisé pour ${username}.`, 'warning'); // Warning to highlight action
+            // Note: The modal stays open so the admin can see/copy the password
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            showNotification(`Erreur lors de la réinitialisation: ${error.message}`, 'error');
+        })
+        .finally(() => {
+             toggleSubmitButton($submitButton, false);
+        });
+    });
+
+    // --- 9. Handle Copy Password Button ---
+    $('#copyPasswordBtn').click(function() {
+        const newPassword = $('#newPasswordDisplay').text();
+        if (!newPassword) {
+            showNotification("Aucun mot de passe à copier.", 'warning');
+            return;
+        }
+        navigator.clipboard.writeText(newPassword).then(() => {
+            showNotification("Mot de passe copié dans le presse-papiers!");
+        }, (err) => {
+            console.error('Erreur lors de la copie: ', err);
+            showNotification("Échec de la copie du mot de passe.", 'error');
+             // Fallback (optional)
+             const textArea = document.createElement("textarea");
+             textArea.value = newPassword;
+             document.body.appendChild(textArea);
+             textArea.select();
+             try {
+               const successful = document.execCommand('copy');
+               if (successful) {
+                   showNotification("Mot de passe copié (méthode alternative)!");
+               } else {
+                    showNotification("Échec de la copie (méthode alternative).", 'error');
+               }
+             } catch (err) {
+               showNotification("Échec de la copie (méthode alternative).", 'error');
+             }
+             document.body.removeChild(textArea);
+        });
+    });
+
+    // --- 10. Reset Add User Modal on Open ---
+    $('#addUserModal').on('shown.bs.modal', function () {
+         $('#addUserForm')[0].reset(); // Reset form fields
+         $('#add_roles').val(null).trigger('change'); // Reset Select2
+         // Focus on first input
+         $('#add_username').trigger('focus');
+    });
+
+    // --- 11. Reset Edit User Modal on Open (optional, less critical) ---
+    $('#editUserModal').on('hidden.bs.modal', function () {
+         $('#editUserForm')[0].reset();
+         $('#edit_roles').val(null).trigger('change');
+    });
+
+    // --- 12. Reset Reset Password Modal on Close ---
+    $('#resetPasswordModal').on('hidden.bs.modal', function () {
+         $('#reset_user_id').val('');
+         $('#resetUserName').text('');
+         $('#newPasswordSection').addClass('d-none');
+         $('#newPasswordDisplay').text('');
+    });
+
+    // --- 13. Open Add User Modal via Button ---
+     $('#openAddUserModal').click(function() {
+         $('#addUserModal').modal('show');
+     });
+
+
+});
+
+</script>
+{% endblock %}

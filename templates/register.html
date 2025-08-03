@@ -1,0 +1,124 @@
+{% extends 'index.html' %}
+
+{% block title %}Inscription - Université de Dschang{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white text-center">
+                <h3 class="fw-bold text-primary mb-0">Créer un compte étudiant/client</h3>
+                <p class="text-muted small mt-1">Remplissez ce formulaire pour accéder à votre espace personnel</p>
+            </div>
+            <div class="card-body p-4 bg-light">
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" action="auth/register" novalidate>
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required />
+                        <div class="form-text">Utilisez de préférence votre email académique ou professionnel.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" required />
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required />
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="confirm_password" class="form-label">Confirmer le mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required />
+                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirm">
+                                    <i class="fas fa-eye" id="eyeIconConfirm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="type_compte" value="etudiant" />
+
+                    <div class="mb-3">
+                        <label for="numero_etudiant" class="form-label">Numéro étudiant (optionnel)</label>
+                        <input type="text" class="form-control" id="numero_etudiant" name="numero_etudiant" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="annee_obtention" class="form-label">Année d'obtention du diplôme (optionnel)</label>
+                        <input type="number" class="form-control" id="annee_obtention" name="annee_obtention" min="1900" max="{{ now.year }}" />
+                        <div class="form-text">Laissez vide si vous êtes encore étudiant.</div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required />
+                        <label class="form-check-label" for="terms">
+                            J'accepte les
+                            <a href="/conditions" target="_blank">conditions d'utilisation</a>
+                            et la
+                            <a href="/confidentialite" target="_blank">politique de confidentialité</a>.
+                        </label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary fw-semibold">Créer mon compte</button>
+                    </div>
+                </form>
+
+                <hr class="my-4" />
+
+                <div class="text-center">
+                    <p class="mb-2">Vous avez déjà un compte ?</p>
+                    <a href="/login" class="btn btn-outline-primary">Se connecter</a>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <h5 class="fw-semibold"><i class="fas fa-info-circle"></i> Information</h5>
+                    <p class="mb-0">Si vous êtes un partenaire et souhaitez obtenir un accès à notre plateforme, veuillez contacter notre service administratif.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleVisibility(id, iconId) {
+        const input = document.getElementById(id);
+        const icon = document.getElementById(iconId);
+        input.type = input.type === "password" ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+    }
+
+    document.getElementById("togglePassword").addEventListener("click", () =>
+        toggleVisibility("password", "eyeIcon")
+    );
+    document.getElementById("toggleConfirm").addEventListener("click", () =>
+        toggleVisibility("confirm_password", "eyeIconConfirm")
+    );
+</script>
+{% endblock %}

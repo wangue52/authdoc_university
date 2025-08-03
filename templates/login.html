@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+{% block title %}Connexion - Université de Dschang{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-header bg-white border-bottom-0 text-center">
+                <h3 class="fw-bold text-primary">Connexion sécurisée</h3>
+                <p class="text-muted small mb-0">Accédez à votre espace universitaire</p>
+            </div>
+            <div class="card-body p-4 bg-light rounded-bottom">
+                {% if error %}
+                <div class="alert alert-danger" role="alert" aria-live="polite">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <form method="post" action="/auth/token">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control border-start-0" id="username" name="username" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control border-start-0" id="password" name="password" required />
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" tabindex="-1">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" />
+                        <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary fw-semibold">Se connecter</button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="/forgot-password" class="text-decoration-none small">Mot de passe oublié ?</a>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="text-center">
+                    <p class="mb-1">Pas encore inscrit ?</p>
+                    <a href="/register" class="btn btn-outline-primary">Créer un compte</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4 border-0 shadow-sm">
+            <div class="card-body bg-white p-4">
+                <h5 class="fw-semibold text-primary"><i class="fas fa-info-circle me-2"></i>Information</h5>
+                <p class="small text-muted">
+                    Si vous êtes un partenaire (WES, ECE) sans identifiants, veuillez contacter notre service d’authentification pour créer un accès sécurisé.
+                </p>
+                <a href="/contact" class="btn btn-sm btn-outline-secondary">Nous contacter</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        eyeIcon.classList.toggle('fa-eye');
+        eyeIcon.classList.toggle('fa-eye-slash');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,91 @@
+<!-- templates/couriel/dashboard.html -->
+{% extends "couriel/base_couriel.html" %}
+
+{% block title %}Tableau de Bord COURIEL{% endblock %}
+
+{% block couriel_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Tableau de Bord Service COURIEL</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <span class="navbar-text">Bienvenue, {{ user.username or user.email }}!</span>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Demandes</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ stats.total_demandes }}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Nouvelles</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ stats.nouvelles }}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Reçues</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ stats.recues }}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Traitées</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ stats.traitees }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Demandes à Réceptionner</h4>
+        {% if nouvelles_demandes %}
+        <div class="list-group">
+            {% for demande in nouvelles_demandes %}
+            <a href="/couriel/demandes/{{ demande.id }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ demande.reference }}</h5>
+                    <small>{{ demande.date_creation.strftime('%d/%m/%Y %H:%M') }}</small>
+                </div>
+                <p class="mb-1">{{ demande.type_service.value }} - {{ demande.client.email }}</p>
+                <small class="badge bg-secondary">{{ demande.statut.value }}</small>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Aucune nouvelle demande à réceptionner.</p>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h4>Demandes Réceptionnées</h4>
+        {% if demandes_recues %}
+        <div class="list-group">
+            {% for demande in demandes_recues %}
+            <a href="/couriel/demandes/{{ demande.id }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ demande.reference }}</h5>
+                    <small>{{ demande.date_reception.strftime('%d/%m/%Y %H:%M') }}</small>
+                </div>
+                <p class="mb-1">{{ demande.type_service.value }} - {{ demande.client.email }}</p>
+                <small class="badge bg-info">{{ demande.statut.value }}</small>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Aucune demande récemment reçue.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

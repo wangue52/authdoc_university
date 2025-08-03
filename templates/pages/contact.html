@@ -1,0 +1,116 @@
+<!-- templates/pages/contact.html -->
+ {% extends 'index.html' %}
+
+{% block title %}Contactez-Nous{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-4 mb-4">Contactez-Nous</h1>
+            <p class="lead">
+                Vous avez une question ou besoin d'assistance ? Remplissez le formulaire ci-dessous et notre équipe vous répondra dans les plus brefs délais.
+            </p>
+            <hr class="my-4">
+
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="/contact" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="nom" name="nom" value="{{ form_data.nom if form_data }}" required>
+                    <div class="invalid-feedback">Veuillez entrer votre nom.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Adresse Email <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ form_data.email if form_data }}" required>
+                    <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="sujet" class="form-label">Sujet <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="sujet" name="sujet" value="{{ form_data.sujet if form_data }}" required>
+                    <div class="invalid-feedback">Veuillez entrer le sujet de votre message.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required>{{ form_data.message if form_data }}</textarea>
+                    <div class="invalid-feedback">Veuillez entrer votre message.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer le Message</button>
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Informations de Contact</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Service Client</h6>
+                    <p class="card-text">
+                        <i class="bi bi-envelope me-2"></i> <a href="mailto:support@institut.edu">support@institut.edu</a><br>
+                        <i class="bi bi-telephone me-2"></i> +237 12 34 56 78<br>
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted">Support Technique</h6>
+                    <p class="card-text">
+                        <i class="bi bi-envelope me-2"></i> <a href="mailto:tech@institut.edu">tech@institut.edu</a><br>
+                        <i class="bi bi-telephone me-2"></i> +237 87 65 43 21<br>
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted">Adresse</h6>
+                    <p class="card-text">
+                        Institut Universitaire XYZ<br>
+                        Rue de l'Université, BP 1234<br>
+                        Ville, Pays
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Horaires d'Ouverture</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Lundi - Vendredi : 8h00 - 17h00<br>
+                        Samedi : 9h00 - 12h00<br>
+                        Dimanche : Fermé
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Script de validation Bootstrap
+(function () {
+  'use strict'
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+{% endblock %}

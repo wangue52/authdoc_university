@@ -1,0 +1,45 @@
+<!-- templates/couriel/base_couriel.html -->
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .sidebar { min-height: calc(100vh - 4.5rem); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/couriel/dashboard">
+                        <i class="bi bi-speedometer2"></i> Tableau de Bord
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/couriel/demandes?statut=SOUMISE">
+                        <i class="bi bi-envelope-plus"></i> Nouvelles Demandes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/couriel/demandes?statut=RECU">
+                        <i class="bi bi-folder2-open"></i> Demandes Reçues
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/couriel/demandes">
+                        <i class="bi bi-list-task"></i> Toutes les Demandes
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        {% block couriel_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

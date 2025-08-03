@@ -1,0 +1,513 @@
+2025-07-28 14:43:16,255 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:43:16,256 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 14:46:17,301 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:46:17,302 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 14:46:17,306 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:46:17,309 - file_utils - INFO - Created request directory: downloads\couriel\request_999
+2025-07-28 14:46:17,505 - file_utils - ERROR - File validation failed: File not found: non_existent.pdf
+2025-07-28 14:46:19,056 - file_utils - ERROR - Security element generation failed: Watermark generation failed: 'Canvas' object has no attribute 'drawCentredText'
+2025-07-28 14:46:19,057 - file_utils - ERROR - Security element generation failed: Invisible watermark generation failed: 'float' object cannot be interpreted as an integer
+2025-07-28 14:46:19,305 - file_utils - ERROR - Failed to secure page 1: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp7c4r55az.png"
+2025-07-28 14:46:19,313 - file_utils - INFO - Successfully secured document: test_output\secured_output.pdf
+2025-07-28 14:46:19,330 - file_utils - ERROR - File validation failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:19,330 - file_utils - WARNING - Attempt 1 failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:20,839 - file_utils - ERROR - File validation failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:20,840 - file_utils - WARNING - Attempt 2 failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:23,106 - file_utils - ERROR - File validation failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:23,107 - file_utils - WARNING - Attempt 3 failed: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:23,107 - file_utils - ERROR - All attempts failed, last error: File not found: test_output\inexistant.pdf
+2025-07-28 14:46:23,158 - file_utils - ERROR - Fallback copy failed: [WinError 2] Le fichier spécifié est introuvable
+2025-07-28 14:46:23,218 - file_utils - ERROR - Failed to save secured file: '>' not supported between instances of 'NoneType' and 'int'
+2025-07-28 14:49:27,178 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:49:27,179 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 14:49:44,296 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:49:44,297 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 14:57:38,836 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 14:57:38,837 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 14:58:09,885 - file_utils - ERROR - Security element generation failed: Watermark generation failed: 'Canvas' object has no attribute 'drawCentredText'
+2025-07-28 14:58:09,887 - file_utils - ERROR - Security element generation failed: Invisible watermark generation failed: 'float' object cannot be interpreted as an integer
+2025-07-28 14:58:10,183 - file_utils - ERROR - Failed to secure page 1: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,214 - file_utils - ERROR - Failed to secure page 2: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,239 - file_utils - ERROR - Failed to secure page 3: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,253 - file_utils - ERROR - Failed to secure page 4: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,260 - file_utils - ERROR - Failed to secure page 5: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,266 - file_utils - ERROR - Failed to secure page 6: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,277 - file_utils - ERROR - Failed to secure page 7: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,280 - file_utils - ERROR - Failed to secure page 8: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,284 - file_utils - ERROR - Failed to secure page 9: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,288 - file_utils - ERROR - Failed to secure page 10: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,297 - file_utils - ERROR - Failed to secure page 11: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,307 - file_utils - ERROR - Failed to secure page 12: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,314 - file_utils - ERROR - Failed to secure page 13: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,321 - file_utils - ERROR - Failed to secure page 14: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,333 - file_utils - ERROR - Failed to secure page 15: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,343 - file_utils - ERROR - Failed to secure page 16: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,359 - file_utils - ERROR - Failed to secure page 17: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,374 - file_utils - ERROR - Failed to secure page 18: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,380 - file_utils - ERROR - Failed to secure page 19: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,386 - file_utils - ERROR - Failed to secure page 20: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,391 - file_utils - ERROR - Failed to secure page 21: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,400 - file_utils - ERROR - Failed to secure page 22: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,405 - file_utils - ERROR - Failed to secure page 23: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,423 - file_utils - ERROR - Failed to secure page 24: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,434 - file_utils - ERROR - Failed to secure page 25: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,444 - file_utils - ERROR - Failed to secure page 26: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,468 - file_utils - ERROR - Failed to secure page 27: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,484 - file_utils - ERROR - Failed to secure page 28: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,492 - file_utils - ERROR - Failed to secure page 29: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,512 - file_utils - ERROR - Failed to secure page 30: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,518 - file_utils - ERROR - Failed to secure page 31: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,533 - file_utils - ERROR - Failed to secure page 32: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,541 - file_utils - ERROR - Failed to secure page 33: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,548 - file_utils - ERROR - Failed to secure page 34: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,553 - file_utils - ERROR - Failed to secure page 35: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,557 - file_utils - ERROR - Failed to secure page 36: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,564 - file_utils - ERROR - Failed to secure page 37: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,570 - file_utils - ERROR - Failed to secure page 38: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,582 - file_utils - ERROR - Failed to secure page 39: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,586 - file_utils - ERROR - Failed to secure page 40: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,591 - file_utils - ERROR - Failed to secure page 41: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,596 - file_utils - ERROR - Failed to secure page 42: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,602 - file_utils - ERROR - Failed to secure page 43: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,606 - file_utils - ERROR - Failed to secure page 44: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,612 - file_utils - ERROR - Failed to secure page 45: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,617 - file_utils - ERROR - Failed to secure page 46: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,625 - file_utils - ERROR - Failed to secure page 47: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,633 - file_utils - ERROR - Failed to secure page 48: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,639 - file_utils - ERROR - Failed to secure page 49: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,645 - file_utils - ERROR - Failed to secure page 50: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,653 - file_utils - ERROR - Failed to secure page 51: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,666 - file_utils - ERROR - Failed to secure page 52: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,678 - file_utils - ERROR - Failed to secure page 53: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,685 - file_utils - ERROR - Failed to secure page 54: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,692 - file_utils - ERROR - Failed to secure page 55: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,705 - file_utils - ERROR - Failed to secure page 56: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,710 - file_utils - ERROR - Failed to secure page 57: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,716 - file_utils - ERROR - Failed to secure page 58: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,722 - file_utils - ERROR - Failed to secure page 59: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,727 - file_utils - ERROR - Failed to secure page 60: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,731 - file_utils - ERROR - Failed to secure page 61: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,737 - file_utils - ERROR - Failed to secure page 62: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,745 - file_utils - ERROR - Failed to secure page 63: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,756 - file_utils - ERROR - Failed to secure page 64: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,762 - file_utils - ERROR - Failed to secure page 65: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,768 - file_utils - ERROR - Failed to secure page 66: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,777 - file_utils - ERROR - Failed to secure page 67: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,783 - file_utils - ERROR - Failed to secure page 68: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,789 - file_utils - ERROR - Failed to secure page 69: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,801 - file_utils - ERROR - Failed to secure page 70: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,807 - file_utils - ERROR - Failed to secure page 71: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,814 - file_utils - ERROR - Failed to secure page 72: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,829 - file_utils - ERROR - Failed to secure page 73: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,841 - file_utils - ERROR - Failed to secure page 74: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,851 - file_utils - ERROR - Failed to secure page 75: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,855 - file_utils - ERROR - Failed to secure page 76: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,862 - file_utils - ERROR - Failed to secure page 77: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,872 - file_utils - ERROR - Failed to secure page 78: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,881 - file_utils - ERROR - Failed to secure page 79: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,897 - file_utils - ERROR - Failed to secure page 80: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,904 - file_utils - ERROR - Failed to secure page 81: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,911 - file_utils - ERROR - Failed to secure page 82: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,928 - file_utils - ERROR - Failed to secure page 83: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,935 - file_utils - ERROR - Failed to secure page 84: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,947 - file_utils - ERROR - Failed to secure page 85: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,956 - file_utils - ERROR - Failed to secure page 86: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,962 - file_utils - ERROR - Failed to secure page 87: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,966 - file_utils - ERROR - Failed to secure page 88: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,970 - file_utils - ERROR - Failed to secure page 89: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,981 - file_utils - ERROR - Failed to secure page 90: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,987 - file_utils - ERROR - Failed to secure page 91: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:10,995 - file_utils - ERROR - Failed to secure page 92: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,002 - file_utils - ERROR - Failed to secure page 93: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,006 - file_utils - ERROR - Failed to secure page 94: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,011 - file_utils - ERROR - Failed to secure page 95: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,024 - file_utils - ERROR - Failed to secure page 96: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,029 - file_utils - ERROR - Failed to secure page 97: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,035 - file_utils - ERROR - Failed to secure page 98: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,039 - file_utils - ERROR - Failed to secure page 99: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,047 - file_utils - ERROR - Failed to secure page 100: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,055 - file_utils - ERROR - Failed to secure page 101: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,060 - file_utils - ERROR - Failed to secure page 102: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,067 - file_utils - ERROR - Failed to secure page 103: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,074 - file_utils - ERROR - Failed to secure page 104: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,080 - file_utils - ERROR - Failed to secure page 105: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,085 - file_utils - ERROR - Failed to secure page 106: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,089 - file_utils - ERROR - Failed to secure page 107: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,098 - file_utils - ERROR - Failed to secure page 108: Cannot open resource "C:\Users\USER\AppData\Local\Temp\tmp_kmb8msy.png"
+2025-07-28 14:58:11,397 - file_utils - INFO - Successfully secured document: uploads\user_1001\request_2001\20250728_145809_4eme.pdf
+2025-07-28 15:01:34,982 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:01:34,983 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 15:02:39,059 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:02:39,060 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 15:02:39,128 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:02:39,570 - file_utils - INFO - Created request directory: downloads\couriel\request_999999
+2025-07-28 15:02:43,273 - UserActions - INFO - Test des répertoires réussi
+2025-07-28 15:03:32,639 - UserActions - INFO - Fichier sélectionné: C:/Users/USER/Documents/epreuve 5eme.pdf
+2025-07-28 15:03:32,685 - PDFSecurityApp - ERROR - Erreur de prévisualisation: name 'ImageDraw' is not defined
+2025-07-28 15:03:45,875 - UserActions - INFO - Début du traitement pour C:/Users/USER/Documents/epreuve 5eme.pdf
+2025-07-28 15:03:45,975 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:03:45,975 - file_utils - WARNING - Attempt 1 failed: Invalid file extension: 
+2025-07-28 15:03:47,501 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:03:47,502 - file_utils - WARNING - Attempt 2 failed: Invalid file extension: 
+2025-07-28 15:03:49,756 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:03:49,757 - file_utils - WARNING - Attempt 3 failed: Invalid file extension: 
+2025-07-28 15:03:49,760 - file_utils - ERROR - All attempts failed, last error: Invalid file extension: 
+2025-07-28 15:03:49,766 - file_utils - WARNING - Used fallback copy from C:\Users\USER\AppData\Local\Temp\tmpthl4_cbu to uploads\user_1001\request_3f6e8d66\20250728_150345_epreuve 5eme.pdf
+2025-07-28 15:04:00,748 - UserActions - INFO - Traitement réussi: uploads\user_1001\request_3f6e8d66\20250728_150345_epreuve 5eme.pdf
+2025-07-28 15:04:00,802 - PDFSecurityApp - ERROR - Erreur de prévisualisation: name 'ImageDraw' is not defined
+2025-07-28 15:06:21,504 - UserActions - INFO - Nouveaux codes générés
+2025-07-28 15:06:32,197 - UserActions - INFO - Nouveaux codes générés
+2025-07-28 15:06:32,884 - UserActions - INFO - Nouveaux codes générés
+2025-07-28 15:06:34,850 - UserActions - INFO - Nouveaux codes générés
+2025-07-28 15:06:48,737 - UserActions - INFO - Début du traitement pour C:/Users/USER/Documents/epreuve 5eme.pdf
+2025-07-28 15:06:48,933 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:06:48,933 - file_utils - WARNING - Attempt 1 failed: Invalid file extension: 
+2025-07-28 15:06:50,440 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:06:50,441 - file_utils - WARNING - Attempt 2 failed: Invalid file extension: 
+2025-07-28 15:06:52,694 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:06:52,695 - file_utils - WARNING - Attempt 3 failed: Invalid file extension: 
+2025-07-28 15:06:52,695 - file_utils - ERROR - All attempts failed, last error: Invalid file extension: 
+2025-07-28 15:06:52,698 - file_utils - WARNING - Used fallback copy from C:\Users\USER\AppData\Local\Temp\tmpovvi0rur to uploads\user_1002\request_6337ae54\20250728_150648_epreuve 5eme.pdf
+2025-07-28 15:07:05,925 - UserActions - INFO - Traitement réussi: uploads\user_1002\request_6337ae54\20250728_150648_epreuve 5eme.pdf
+2025-07-28 15:07:05,949 - PDFSecurityApp - ERROR - Erreur de prévisualisation: name 'ImageDraw' is not defined
+2025-07-28 15:09:03,057 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:09:03,058 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 15:09:03,061 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:09:04,508 - file_utils - INFO - Created request directory: downloads\couriel\request_999999
+2025-07-28 15:09:14,821 - UserActions - INFO - Test des répertoires réussi
+2025-07-28 15:10:25,763 - UserActions - INFO - Fichier sélectionné: C:/Users/USER/Desktop/pdf cours/01.corrige.pdf
+2025-07-28 15:10:31,191 - UserActions - INFO - Début du traitement pour C:/Users/USER/Desktop/pdf cours/01.corrige.pdf
+2025-07-28 15:10:31,217 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:10:31,224 - file_utils - WARNING - Attempt 1 failed: Invalid file extension: 
+2025-07-28 15:10:32,731 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:10:32,731 - file_utils - WARNING - Attempt 2 failed: Invalid file extension: 
+2025-07-28 15:10:34,999 - file_utils - ERROR - File validation failed: Invalid file extension: 
+2025-07-28 15:10:35,000 - file_utils - WARNING - Attempt 3 failed: Invalid file extension: 
+2025-07-28 15:10:35,000 - file_utils - ERROR - All attempts failed, last error: Invalid file extension: 
+2025-07-28 15:10:35,015 - file_utils - WARNING - Used fallback copy from C:\Users\USER\AppData\Local\Temp\tmpeeoet9zk to uploads\user_1001\request_c4c678c4\20250728_151031_01.corrige.pdf
+2025-07-28 15:10:46,910 - UserActions - INFO - Traitement réussi: uploads\user_1001\request_c4c678c4\20250728_151031_01.corrige.pdf
+2025-07-28 15:12:09,060 - UserActions - INFO - Fichier sélectionné: C:/Users/USER/Pictures/2022-06-23/001.jpg
+2025-07-28 15:12:11,711 - file_utils - ERROR - File validation failed: Invalid file extension: .jpg
+2025-07-28 15:12:14,004 - PDFSecurityApp - ERROR - Validation fichier échouée: Invalid file extension: .jpg
+2025-07-28 15:25:14,299 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:25:14,325 - file_utils - INFO - File utilities module initialized successfully
+2025-07-28 15:25:14,327 - file_utils - WARNING - System Helvetica fonts not found, using defaults
+2025-07-28 15:26:04,180 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 15:26:42,085 - file_utils - ERROR - Échec de l'application des éléments de sécurité : expected str, bytes or os.PathLike object, not PngImageFile
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 257, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+        qr_image,
+        ^^^^^^^^^
+    ...<2 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2108, in __init__
+    ext = os.path.splitext(source)[1].lower()
+          ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen ntpath>", line 244, in splitext
+TypeError: expected str, bytes or os.PathLike object, not PngImageFile
+2025-07-28 15:26:42,218 - file_utils - ERROR - La sécurisation du document a échoué : Impossible d'appliquer les éléments de sécurité : expected str, bytes or os.PathLike object, not PngImageFile
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 257, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+        qr_image,
+        ^^^^^^^^^
+    ...<2 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2108, in __init__
+    ext = os.path.splitext(source)[1].lower()
+          ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen ntpath>", line 244, in splitext
+TypeError: expected str, bytes or os.PathLike object, not PngImageFile
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 332, in secure_document
+    await loop.run_in_executor(
+    ...<6 lines>...
+    )
+  File "C:\Program Files\Python313\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 296, in _apply_security_elements
+    raise FileSecurityError(f"Impossible d'appliquer les éléments de sécurité : {e}")
+file_utils.FileSecurityError: Impossible d'appliquer les éléments de sécurité : expected str, bytes or os.PathLike object, not PngImageFile
+2025-07-28 15:26:42,275 - file_utils - WARNING - Utilisation de la copie de secours pour C:\Users\USER\Documents\5eme_SECURISE.pdf
+2025-07-28 15:33:12,134 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 15:33:56,205 - file_utils - ERROR - Échec de l'application des éléments de sécurité : expected str, bytes or os.PathLike object, not BytesIO
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 257, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+        qr_image,
+        ^^^^^^^^^
+    ...<2 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2108, in __init__
+    ext = os.path.splitext(source)[1].lower()
+          ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen ntpath>", line 244, in splitext
+TypeError: expected str, bytes or os.PathLike object, not BytesIO
+2025-07-28 15:33:56,435 - file_utils - ERROR - La sécurisation du document a échoué : Impossible d'appliquer les éléments de sécurité : expected str, bytes or os.PathLike object, not BytesIO
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 257, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+        qr_image,
+        ^^^^^^^^^
+    ...<2 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2108, in __init__
+    ext = os.path.splitext(source)[1].lower()
+          ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen ntpath>", line 244, in splitext
+TypeError: expected str, bytes or os.PathLike object, not BytesIO
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 332, in secure_document
+    await loop.run_in_executor(
+    ...<6 lines>...
+    )
+  File "C:\Program Files\Python313\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 296, in _apply_security_elements
+    raise FileSecurityError(f"Impossible d'appliquer les éléments de sécurité : {e}")
+file_utils.FileSecurityError: Impossible d'appliquer les éléments de sécurité : expected str, bytes or os.PathLike object, not BytesIO
+2025-07-28 15:33:56,574 - file_utils - WARNING - Utilisation de la copie de secours pour C:\Users\USER\Documents\5eme_SECURISE.pdf
+2025-07-28 15:38:36,150 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 15:38:51,792 - file_utils - ERROR - Échec de l'application des éléments de sécurité : Cannot open resource "b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x94\x00\x00\x00\x94\x01\x00\x00\x00\x00]G=y\x00\x00\x01^IDATx\x9c\xcdVK\x8a%1\x0c\x93\x8b\xb7Wn\x90\xfb\x1f+7PN\xa0F\xc9\x9b\xcd\x0c\xb3h\xfc\xa0\xbb\xa0\x92J\xa0\x84?\x92\xed2\xfe~\xf6\xf3\xcf\x15\xf0swU5\xf6.d;\x07\xf4\xf0\xe8\xe3r\xc1\x9a\xf7\xf04\xf0^@\x11\xc3\xca~\x966\x1e\x00\x82\x03\x1a\xe3{\xff>\xff\xbf+,M\xa9\x8f\x07\xd3&\x82D\xf0\x1c\xd4\xc1+W\x90\xfe<\x1b\xe0\xea\xc5\xcf\x00\x06\xb0\x88\x8d\xe9.\x9fa\x02Lze\xf3~?=<\xdd\xb0\x11\x92!\xf4\xe2\x07\x83\xcc"3\xb9a\xdf>\x1cO\x8f2\x98W=<\x1d\xaaX\xa6lC]\xfb$H\xa1\x8cI} ~|\xe7U\xb1\x90l\xda\xf7\x84\xc3+fN\xd4\x06\xd6\xec\xea\xed\x04-\x0e\xc7>\x91m\x7fe\x0b\xba.\xb7\xe3\xf7\x8a\xc0\x86\xa2bc@\x93\xea\xea\x8daq>o\xa5n\xeb\xe3\xa0\xc5\xcf\x88\x04\xfa@\xfc\x94\x82\x90\xe5\x92\xe6\xe9\xe1Q\x91\x87\x18\x11\xab\xcb?\xf8\x88"\x8a\xb3NA\xe8\xe1\x95\xdfMha\xaa\x00h\xae6\x9f\x9d-II\xa6{\xf1\xbb\xf3\x81=v\x18\x9d\xc2\xafO\xf47+\x81;\xf5\xaf]\x0fj\xc4\xaeR\xc1\xbb\xe0\xde\xfc\xf2\x9e\x0f\x16\x94\xce)\x06\xfci\xe0\x95\xc7N\xa7\x84wpKl\xf7\xcb\x8c\x04!^jVf\x045\xf5\x8b[\xec\xa1#\x90f>\xea\x97\xcf\xbb_*!\xf7L7\xe2/\x15\x00\x00\x00\x00IEND\xaeB`\x82'"
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 523, in open_for_read
+    return open_for_read_by_name(name,mode)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 463, in open_for_read_by_name
+    return open(name,mode)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 530, in open_for_read
+    return BytesIO((datareader if name[:5].lower()=='data:' else rlUrlRead)(name))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 476, in rlUrlRead
+    return urlopen(name).read()
+           ~~~~~~~^^^^^^
+  File "C:\Program Files\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\urllib\request.py", line 479, in open
+    req.timeout = timeout
+    ^^^^^^^^^^^
+AttributeError: 'bytes' object has no attribute 'timeout' and no __dict__ for setting new attributes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 256, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+       qr_element.content,
+       ^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2109, in __init__
+    src = open_for_read(source)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 534, in open_for_read
+    return open_for_read(name,mode)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 532, in open_for_read
+    raise IOError('Cannot open resource "%s"' % name)
+OSError: Cannot open resource "b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x94\x00\x00\x00\x94\x01\x00\x00\x00\x00]G=y\x00\x00\x01^IDATx\x9c\xcdVK\x8a%1\x0c\x93\x8b\xb7Wn\x90\xfb\x1f+7PN\xa0F\xc9\x9b\xcd\x0c\xb3h\xfc\xa0\xbb\xa0\x92J\xa0\x84?\x92\xed2\xfe~\xf6\xf3\xcf\x15\xf0swU5\xf6.d;\x07\xf4\xf0\xe8\xe3r\xc1\x9a\xf7\xf04\xf0^@\x11\xc3\xca~\x966\x1e\x00\x82\x03\x1a\xe3{\xff>\xff\xbf+,M\xa9\x8f\x07\xd3&\x82D\xf0\x1c\xd4\xc1+W\x90\xfe<\x1b\xe0\xea\xc5\xcf\x00\x06\xb0\x88\x8d\xe9.\x9fa\x02Lze\xf3~?=<\xdd\xb0\x11\x92!\xf4\xe2\x07\x83\xcc"3\xb9a\xdf>\x1cO\x8f2\x98W=<\x1d\xaaX\xa6lC]\xfb$H\xa1\x8cI} ~|\xe7U\xb1\x90l\xda\xf7\x84\xc3+fN\xd4\x06\xd6\xec\xea\xed\x04-\x0e\xc7>\x91m\x7fe\x0b\xba.\xb7\xe3\xf7\x8a\xc0\x86\xa2bc@\x93\xea\xea\x8daq>o\xa5n\xeb\xe3\xa0\xc5\xcf\x88\x04\xfa@\xfc\x94\x82\x90\xe5\x92\xe6\xe9\xe1Q\x91\x87\x18\x11\xab\xcb?\xf8\x88"\x8a\xb3NA\xe8\xe1\x95\xdfMha\xaa\x00h\xae6\x9f\x9d-II\xa6{\xf1\xbb\xf3\x81=v\x18\x9d\xc2\xafO\xf47+\x81;\xf5\xaf]\x0fj\xc4\xaeR\xc1\xbb\xe0\xde\xfc\xf2\x9e\x0f\x16\x94\xce)\x06\xfci\xe0\x95\xc7N\xa7\x84wpKl\xf7\xcb\x8c\x04!^jVf\x045\xf5\x8b[\xec\xa1#\x90f>\xea\x97\xcf\xbb_*!\xf7L7\xe2/\x15\x00\x00\x00\x00IEND\xaeB`\x82'"
+2025-07-28 15:38:51,918 - file_utils - ERROR - La sécurisation du document a échoué : Impossible d'appliquer les éléments de sécurité : Cannot open resource "b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x94\x00\x00\x00\x94\x01\x00\x00\x00\x00]G=y\x00\x00\x01^IDATx\x9c\xcdVK\x8a%1\x0c\x93\x8b\xb7Wn\x90\xfb\x1f+7PN\xa0F\xc9\x9b\xcd\x0c\xb3h\xfc\xa0\xbb\xa0\x92J\xa0\x84?\x92\xed2\xfe~\xf6\xf3\xcf\x15\xf0swU5\xf6.d;\x07\xf4\xf0\xe8\xe3r\xc1\x9a\xf7\xf04\xf0^@\x11\xc3\xca~\x966\x1e\x00\x82\x03\x1a\xe3{\xff>\xff\xbf+,M\xa9\x8f\x07\xd3&\x82D\xf0\x1c\xd4\xc1+W\x90\xfe<\x1b\xe0\xea\xc5\xcf\x00\x06\xb0\x88\x8d\xe9.\x9fa\x02Lze\xf3~?=<\xdd\xb0\x11\x92!\xf4\xe2\x07\x83\xcc"3\xb9a\xdf>\x1cO\x8f2\x98W=<\x1d\xaaX\xa6lC]\xfb$H\xa1\x8cI} ~|\xe7U\xb1\x90l\xda\xf7\x84\xc3+fN\xd4\x06\xd6\xec\xea\xed\x04-\x0e\xc7>\x91m\x7fe\x0b\xba.\xb7\xe3\xf7\x8a\xc0\x86\xa2bc@\x93\xea\xea\x8daq>o\xa5n\xeb\xe3\xa0\xc5\xcf\x88\x04\xfa@\xfc\x94\x82\x90\xe5\x92\xe6\xe9\xe1Q\x91\x87\x18\x11\xab\xcb?\xf8\x88"\x8a\xb3NA\xe8\xe1\x95\xdfMha\xaa\x00h\xae6\x9f\x9d-II\xa6{\xf1\xbb\xf3\x81=v\x18\x9d\xc2\xafO\xf47+\x81;\xf5\xaf]\x0fj\xc4\xaeR\xc1\xbb\xe0\xde\xfc\xf2\x9e\x0f\x16\x94\xce)\x06\xfci\xe0\x95\xc7N\xa7\x84wpKl\xf7\xcb\x8c\x04!^jVf\x045\xf5\x8b[\xec\xa1#\x90f>\xea\x97\xcf\xbb_*!\xf7L7\xe2/\x15\x00\x00\x00\x00IEND\xaeB`\x82'"
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 523, in open_for_read
+    return open_for_read_by_name(name,mode)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 463, in open_for_read_by_name
+    return open(name,mode)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 530, in open_for_read
+    return BytesIO((datareader if name[:5].lower()=='data:' else rlUrlRead)(name))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 476, in rlUrlRead
+    return urlopen(name).read()
+           ~~~~~~~^^^^^^
+  File "C:\Program Files\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\urllib\request.py", line 479, in open
+    req.timeout = timeout
+    ^^^^^^^^^^^
+AttributeError: 'bytes' object has no attribute 'timeout' and no __dict__ for setting new attributes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 256, in _apply_security_elements
+    c.drawImage(
+    ~~~~~~~~~~~^
+       qr_element.content,
+       ^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        mask='auto'
+        ^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1005, in drawImage
+    imgObj = pdfdoc.PDFImageXObject(name, image, mask=mask)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfbase\pdfdoc.py", line 2109, in __init__
+    src = open_for_read(source)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 534, in open_for_read
+    return open_for_read(name,mode)
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\lib\utils.py", line 532, in open_for_read
+    raise IOError('Cannot open resource "%s"' % name)
+OSError: Cannot open resource "b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x94\x00\x00\x00\x94\x01\x00\x00\x00\x00]G=y\x00\x00\x01^IDATx\x9c\xcdVK\x8a%1\x0c\x93\x8b\xb7Wn\x90\xfb\x1f+7PN\xa0F\xc9\x9b\xcd\x0c\xb3h\xfc\xa0\xbb\xa0\x92J\xa0\x84?\x92\xed2\xfe~\xf6\xf3\xcf\x15\xf0swU5\xf6.d;\x07\xf4\xf0\xe8\xe3r\xc1\x9a\xf7\xf04\xf0^@\x11\xc3\xca~\x966\x1e\x00\x82\x03\x1a\xe3{\xff>\xff\xbf+,M\xa9\x8f\x07\xd3&\x82D\xf0\x1c\xd4\xc1+W\x90\xfe<\x1b\xe0\xea\xc5\xcf\x00\x06\xb0\x88\x8d\xe9.\x9fa\x02Lze\xf3~?=<\xdd\xb0\x11\x92!\xf4\xe2\x07\x83\xcc"3\xb9a\xdf>\x1cO\x8f2\x98W=<\x1d\xaaX\xa6lC]\xfb$H\xa1\x8cI} ~|\xe7U\xb1\x90l\xda\xf7\x84\xc3+fN\xd4\x06\xd6\xec\xea\xed\x04-\x0e\xc7>\x91m\x7fe\x0b\xba.\xb7\xe3\xf7\x8a\xc0\x86\xa2bc@\x93\xea\xea\x8daq>o\xa5n\xeb\xe3\xa0\xc5\xcf\x88\x04\xfa@\xfc\x94\x82\x90\xe5\x92\xe6\xe9\xe1Q\x91\x87\x18\x11\xab\xcb?\xf8\x88"\x8a\xb3NA\xe8\xe1\x95\xdfMha\xaa\x00h\xae6\x9f\x9d-II\xa6{\xf1\xbb\xf3\x81=v\x18\x9d\xc2\xafO\xf47+\x81;\xf5\xaf]\x0fj\xc4\xaeR\xc1\xbb\xe0\xde\xfc\xf2\x9e\x0f\x16\x94\xce)\x06\xfci\xe0\x95\xc7N\xa7\x84wpKl\xf7\xcb\x8c\x04!^jVf\x045\xf5\x8b[\xec\xa1#\x90f>\xea\x97\xcf\xbb_*!\xf7L7\xe2/\x15\x00\x00\x00\x00IEND\xaeB`\x82'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 333, in secure_document
+    await loop.run_in_executor(
+    ...<6 lines>...
+    )
+  File "C:\Program Files\Python313\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 297, in _apply_security_elements
+    raise FileSecurityError(f"Impossible d'appliquer les éléments de sécurité : {e}")
+file_utils.FileSecurityError: Impossible d'appliquer les éléments de sécurité : Cannot open resource "b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x94\x00\x00\x00\x94\x01\x00\x00\x00\x00]G=y\x00\x00\x01^IDATx\x9c\xcdVK\x8a%1\x0c\x93\x8b\xb7Wn\x90\xfb\x1f+7PN\xa0F\xc9\x9b\xcd\x0c\xb3h\xfc\xa0\xbb\xa0\x92J\xa0\x84?\x92\xed2\xfe~\xf6\xf3\xcf\x15\xf0swU5\xf6.d;\x07\xf4\xf0\xe8\xe3r\xc1\x9a\xf7\xf04\xf0^@\x11\xc3\xca~\x966\x1e\x00\x82\x03\x1a\xe3{\xff>\xff\xbf+,M\xa9\x8f\x07\xd3&\x82D\xf0\x1c\xd4\xc1+W\x90\xfe<\x1b\xe0\xea\xc5\xcf\x00\x06\xb0\x88\x8d\xe9.\x9fa\x02Lze\xf3~?=<\xdd\xb0\x11\x92!\xf4\xe2\x07\x83\xcc"3\xb9a\xdf>\x1cO\x8f2\x98W=<\x1d\xaaX\xa6lC]\xfb$H\xa1\x8cI} ~|\xe7U\xb1\x90l\xda\xf7\x84\xc3+fN\xd4\x06\xd6\xec\xea\xed\x04-\x0e\xc7>\x91m\x7fe\x0b\xba.\xb7\xe3\xf7\x8a\xc0\x86\xa2bc@\x93\xea\xea\x8daq>o\xa5n\xeb\xe3\xa0\xc5\xcf\x88\x04\xfa@\xfc\x94\x82\x90\xe5\x92\xe6\xe9\xe1Q\x91\x87\x18\x11\xab\xcb?\xf8\x88"\x8a\xb3NA\xe8\xe1\x95\xdfMha\xaa\x00h\xae6\x9f\x9d-II\xa6{\xf1\xbb\xf3\x81=v\x18\x9d\xc2\xafO\xf47+\x81;\xf5\xaf]\x0fj\xc4\xaeR\xc1\xbb\xe0\xde\xfc\xf2\x9e\x0f\x16\x94\xce)\x06\xfci\xe0\x95\xc7N\xa7\x84wpKl\xf7\xcb\x8c\x04!^jVf\x045\xf5\x8b[\xec\xa1#\x90f>\xea\x97\xcf\xbb_*!\xf7L7\xe2/\x15\x00\x00\x00\x00IEND\xaeB`\x82'"
+2025-07-28 15:38:51,940 - file_utils - WARNING - Utilisation de la copie de secours pour C:\Users\USER\Documents\5eme_SECURISE.pdf
+2025-07-28 15:59:33,658 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 15:59:52,129 - file_utils - ERROR - Échec de l'application des éléments de sécurité : unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 266, in _apply_security_elements
+    c.drawRightString(page.mediabox.width - 20, 20, f"ID: {verification_code[:8]}")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1631, in drawRightString
+    t = self.beginText(x - width, y)
+                       ~~^~~~~~~
+TypeError: unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+2025-07-28 15:59:52,163 - file_utils - ERROR - La sécurisation du document a échoué : Impossible d'appliquer les éléments de sécurité : unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 266, in _apply_security_elements
+    c.drawRightString(page.mediabox.width - 20, 20, f"ID: {verification_code[:8]}")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Roaming\Python\Python313\site-packages\reportlab\pdfgen\canvas.py", line 1631, in drawRightString
+    t = self.beginText(x - width, y)
+                       ~~^~~~~~~
+TypeError: unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 322, in secure_document
+    await loop.run_in_executor(
+    ...<6 lines>...
+    )
+  File "C:\Program Files\Python313\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 290, in _apply_security_elements
+    raise FileSecurityError(f"Impossible d'appliquer les éléments de sécurité : {e}")
+file_utils.FileSecurityError: Impossible d'appliquer les éléments de sécurité : unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+2025-07-28 15:59:52,185 - file_utils - WARNING - Utilisation de la copie de secours pour C:\Users\USER\Documents\5eme_SECURISE.pdf
+2025-07-28 16:06:15,662 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 16:06:35,286 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\4eme_SECURISE.pdf
+2025-07-28 16:10:30,424 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\UML TD2 _ Diagrammes de classes, héritage_SECURISE.pdf
+2025-07-28 16:15:18,021 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Desktop\COURS\4eme_SECURISE.pdf
+2025-07-28 16:21:30,712 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Desktop\COURS\1-html_css_SECURISE.pdf
+2025-07-28 23:33:42,257 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 23:34:45,606 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\epreuve 5eme_SECURISE.pdf
+2025-07-28 23:51:13,472 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\STAGE FRESHNELLE_SECURISE.pdf
+2025-07-28 23:53:15,248 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-28 23:53:57,505 - file_utils - ERROR - Échec de l'application des éléments de sécurité : [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+Traceback (most recent call last):
+  File "C:\Program Files\Python313\Lib\shutil.py", line 856, in move
+    os.rename(src, real_dst)
+    ~~~~~~~~~^^^^^^^^^^^^^^^
+FileExistsError: [WinError 183] Impossible de créer un fichier déjà existant: 'C:\\Users\\USER\\AppData\\Local\\Temp\\tmpzmzrutz6.pdf' -> 'C:\\Users\\USER\\Documents\\STAGE FRESHNELLE_SECURISE.pdf'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 316, in _apply_security_elements
+    shutil.move(str(temp_output_path), str(output_path))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\shutil.py", line 876, in move
+    copy_function(src, real_dst)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+2025-07-28 23:53:57,571 - file_utils - ERROR - La sécurisation du document a échoué : Impossible d'appliquer les éléments de sécurité : [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+Traceback (most recent call last):
+  File "C:\Program Files\Python313\Lib\shutil.py", line 856, in move
+    os.rename(src, real_dst)
+    ~~~~~~~~~^^^^^^^^^^^^^^^
+FileExistsError: [WinError 183] Impossible de créer un fichier déjà existant: 'C:\\Users\\USER\\AppData\\Local\\Temp\\tmpzmzrutz6.pdf' -> 'C:\\Users\\USER\\Documents\\STAGE FRESHNELLE_SECURISE.pdf'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 316, in _apply_security_elements
+    shutil.move(str(temp_output_path), str(output_path))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\shutil.py", line 876, in move
+    copy_function(src, real_dst)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 352, in secure_document
+    await loop.run_in_executor(
+    ...<6 lines>...
+    )
+  File "C:\Program Files\Python313\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\USER\Desktop\auth\utils\file_utils.py", line 320, in _apply_security_elements
+    raise FileSecurityError(f"Impossible d'appliquer les éléments de sécurité : {e}")
+file_utils.FileSecurityError: Impossible d'appliquer les éléments de sécurité : [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+2025-07-28 23:53:57,669 - file_utils - CRITICAL - La copie de secours a également échoué : [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus
+2025-07-28 23:55:01,432 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\STAGE FRESHNELLE YAOURT_SECURISE.pdf
+2025-07-29 00:13:57,381 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-29 00:15:31,010 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\recettes de dan - Copie_SECURISE.pdf
+2025-07-29 00:22:18,174 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-29 00:23:55,904 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\recettes de dan - Copie_SECURISE.pdf
+2025-07-29 00:44:18,591 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Documents\épreuve de 4ème _SECURISE.pdf
+2025-07-29 09:10:33,297 - file_utils - INFO - Module des utilitaires de fichiers initialisé.
+2025-07-29 09:12:29,197 - file_utils - INFO - Document sécurisé avec succès : C:\Users\USER\Desktop\COURS\Informatique-Seq3-Terminale-A4-janvier-2024_SECURISE.pdf

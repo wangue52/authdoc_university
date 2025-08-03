@@ -1,0 +1,39 @@
+<!-- templates/verification/verification_succes.html -->
+{% extends "base.html" %}
+
+{% block title %}Document Vérifié avec Succès{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="alert alert-success text-center" role="alert">
+            <i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i>
+            <h2 class="mt-3">Document Authentique !</h2>
+            <p class="lead">La vérification du document a été effectuée avec succès.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Détails de la Demande</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr><td><strong>Référence:</strong></td><td>{{ demande.reference }}</td></tr>
+                    <tr><td><strong>Type de Service:</strong></td><td>{{ demande.type_service.value }}</td></tr>
+                    <tr><td><strong>Date de Traitement:</strong></td><td>{{ demande.date_reponse.strftime('%d/%m/%Y %H:%M') if demande.date_reponse else 'N/A' }}</td></tr>
+                    <tr><td><strong>Code de Vérification:</strong></td><td><code>{{ demande.code_verification }}</code></td></tr>
+                </table>
+                
+                {% if reponse %}
+                <h6>Réponse Associée:</h6>
+                <p>{{ reponse.contenu }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-muted">Vérification effectuée le {{ date_verification.strftime('%d/%m/%Y à %H:%M') }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
